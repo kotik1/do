@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>Rambam</title>
+  <link rel="stylesheet" href="{% static 'css/event.css' %}">
+   <script type="text/javascript" src="{% static 'js/production_or_local.js' %}"></script>
+</head>
+<body style="margin: 0 !important;padding: 0 !important;font-family: muse;">
+
+	<div class="logo_and_navigation">
+		<a href="/"><div class="logo"><img src="{% static 'images/tick-tock.png' %}" align="left" /></div></a>
+		<div class="navigation">
+			<a href="/catologue/" class="navigation_link">Події</a>
+			<a href="" class="navigation_link">FAQ</a>
+			<a href="" class="navigation_link">Про проект</a>
+			<a href="" class="navigation_profile_link"><img style="width: 30px;height: 30px;border-radius:50%;border: solid 1px #ffffff;background-color: gray;display: inline-block; text-align: center;" align="left" /><div class="navigation_profile_username">Sergey Matchuk</div></a>
+			<div class="sell_button"><span style="line-height: 40px;color: #145cfb;" onclick="openNav()">Продати квиток</span></div>
+		</div>	
+		
+    
+	</div>
+
+
+	<div class="bg">
+	<div style="display: inline;">
+		<div class="datetime"> {{ event.date}}</div>
+		<div class="event_title">{{event.title}}</div><br/>
+		<div class="event_place">{{event.place}}</div>
+	</div>
+
+		<div class="bg_bottom">
+			<span class="event_hashtag">
+			  {{ event.hashtag}}
+			 </span>
+		</div>
+<!-- 	<div class="poster" style="width:240px;height:300px;border-radius:3px;float:right;background: url('{{ event.image_link }}') no-repeat;background-size: cover;margin-right: 10%;margin-top: -100px" ></div> -->
+	</div>
+
+  <div class="one_left">
+	<div class="event_description">
+		{{ event.description}}
+
+	</div>
+
+		<div class="event_numbers">
+     			<div class="event_number">25 <br><span class="event_number_element_span">білетів додано</span></div>
+     			<div class="event_number">48 <br><span class="event_number_element_span">білетів куплено</span></div>
+     			<div class="event_number">$666 <br><span class="event_number_element_span">середня ціна</span></div>
+
+
+
+     		</div>
+
+
+  </div>
+
+  
+  <div class="one_right">
+  	<div class="poster" style="width:240px;height:300px;position: relative;
+	display: block;border-radius:3px;background: url('{{ event.image_link }}') no-repeat;background-size: cover;" ></div> <br/>
+  	<div class="under_poster_motivation"> Не можете відвідати дану подію? <br/> Продайте ваш квиток тут</div>
+     <div class="event_sell_button"><a  style="line-height: 40px;">Продати квиток</a></div>
+
+  </div>
+
+
+  <div class="title_table">
+  	
+  		 <div class="title_who_seller">Продают квітки</div>
+  		 <div class="table"></div>
+  </div>
+
+   <div class="similar_events">
+  	
+  		 <div class="title_similar_events">Схожі події</div>
+  		  {% for similar_event in similar_events%}
+
+  		 <a href="/event/{{ event.id}}">
+			<div style="width: 216px;display: inline-block;margin-left: 30px;margin-top: 20px;border: solid 1px #f8f9fb;box-shadow: 0 0 3px 0 rgba(6,7,14,0.12);;">
+				 <div style="height: 201px; background: url('{{ similar_event.image_link }}') no-repeat; background-size: cover;/*filter: contrast(1.35);*/"></div>
+				 <div style="height: 109px;margin-left: 12px;">
+              <span class="similar_event_date"> {{ similar_event.date}}</span>
+              <span class="similar_event_title">{{ similar_event.title }}</span>
+              <span class="similar_event_place">{{ similar_event.city}}, {{ similar_event.place }}</span>
+
+            <!--   <span class="event_hashtag">#</span> -->
+
+         </div>
+			</div>
+			
+	  </a>
+  		  {% endfor %}
+  		
+  		 
+  </div>
+</body>
+</html>

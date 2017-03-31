@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>Rambam</title>
+  <link rel="stylesheet" href="{% static 'css/catologue.css' %}">
+   <script type="text/javascript" src="{% static 'js/production_or_local.js' %}"></script>
+</head>
+<body style="margin: 0 !important;padding: 0 !important;font-family: muse;">
+
+	<div class="logo_and_navigation">
+		<div class="logo"><img src="{% static 'images/tick-tock.png' %}" align="left" /></div>
+		<div class="navigation">
+			<a href="/catologue/" class="navigation_link">Події</a>
+			<a href="" class="navigation_link">FAQ</a>
+			<a href="" class="navigation_link">Про проект</a>
+			<a href="" class="navigation_profile_link"><img style="width: 30px;height: 30px;border-radius:50%;border: solid 1px #ffffff;background-color: gray;display: inline-block; text-align: center;" align="left" /><div class="navigation_profile_username">Sergey Matchuk</div></a>
+			<div class="sell_button"><span style="line-height: 40px;color: #145cfb;" onclick="openNav()">Войти</span></div>
+		</div>	
+		
+
+	</div>
+
+
+
+	<div class="b-g">
+		<div class="b-g-top">
+			<span class="b-g-search-title">Події</span>
+			  <form class="search_form">
+	              <div class="make_elegant_form">
+          	         	 <input type="text" placeholder="введіть назву події.." ></input>
+               
+                    	         	 
+                    	         	 <div type='button' class="city_select">
+
+
+                                 <img class='location_img' src="{% static 'images/location.png' %}"/>
+                                 <div style="line-height: 48px;display: inline-block;margin-left: 7px;">Київ</div>
+
+
+
+                                </div>
+          	         
+          	         	     
+
+                  
+	         	   
+                </div>
+                      <input type="button" value="Знайти"  сlass="search_button"></input>
+	         </form>
+	         <div class="show_filter">Фільтри</div>
+		</div>
+		<div class="b-g-bottom">
+			<span class="number_of_search_results">
+				<span style="
+	font-size: 14px;
+	color: #113ffa;
+	font-family: muse_bold;
+"> {{ events_number }}</span>
+				<span style="	font-size: 14px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: normal;
+	letter-spacing: normal;
+	text-align: left;
+	color: #000000;">результатів пошуку</span>
+			</span>
+		</div>
+
+	</div>
+
+	<div>
+
+	<div style="position: relative;margin-left: 5%;margin-top: 2.3%;">
+		
+      {% for event in events %}
+      <a href="/event/{{ event.id}}">
+			<div style="width: 216px;display: inline-block;margin-left: 30px;margin-top: 20px;border: solid 1px #f8f9fb;box-shadow: 0 0 3px 0 rgba(6,7,14,0.12);;">
+				 <div style="height: 201px; background: url('{{ event.image_link }}') no-repeat; background-size: cover;/*filter: contrast(1.35);*/"></div>
+				 <div style="height: 109px;margin-left: 12px;">
+              <span class="event_date"> {{ event.date}}</span>
+              <span class="event_title">{{ event.title }}</span>
+              <span class="event_place">{{ event.city}}, {{ event.place }}</span>
+
+            <!--   <span class="event_hashtag">#</span> -->
+
+         </div>
+			</div>
+			
+	  </a>
+			{% endfor %}
+
+	</div>		
+
+	</div>
+
+</body>
+</html>

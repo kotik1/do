@@ -1,0 +1,109 @@
+@font-face {
+    font-family: muse;
+    src: url('../fonts/museosansotf.otf');
+}
+
+@font-face {
+    font-family: muse_bold;
+    src: url('../fonts/muse500bold.ttf');
+}
+
+@font-face {
+    font-family: muse_light;
+    src: url('../fonts/MuseoSansLight.ttf');
+}
+
+
+.logo_and_navigation {
+	position: relative;
+    margin-left:auto;
+	width: 100%;
+	height: 80px;
+	background:white;
+}
+
+
+.logo{
+	position: relative;
+	color: #091026;
+	margin-left: 56px;
+	margin-top: 1.8%;
+	/*margin-bottom: 30px;*/
+	display: inline-block;
+
+}
+
+.navigation{
+    position: relative;
+    margin-left: 35%;
+	display: inline-block;
+}
+
+.navigation_link{
+	position: relative;
+	display: inline-block;
+	font-size: 14px;
+	color: #06070e;
+	margin-left: 55px;
+}
+
+.navigation_profile_link{
+
+	display: inline-block;
+	margin-left: 56px;
+	vertical-align: middle;
+
+	/*margin-top: 40px;*/
+}
+
+
+.navigation_profile_username{
+    display: inline-block;
+	/*object-fit: contain;*/
+	font-family: muse_bold;
+	margin-top: 7px;
+	font-size: 14px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	/*  height: 30px;*/
+	/* margin-bottom: 20px;*/
+	letter-spacing: normal;
+/*	text-align: left;*/
+	color: #091026;
+	margin-left: 10px;
+	/* text-align: center;*/
+ /* vertical-align: middle;*/
+
+}
+
+
+
+.sell_button{
+	display: inline-block;
+	width: 152px;
+	height: 40px;
+	font-size: 14px;
+	margin-left: 32px;
+	margin-right: 56px;
+	color: white;
+
+	text-align: center;
+border: solid 1px #145cfb;
+    
+	box-shadow: 0 0 4px 0 rgba(20, 92, 251, 0.42);
+
+
+
+
+}
+
+
+
+.bg{
+
+	width: 100%;
+	height: 189px;
+	position: relative;
+	background-color: black;
+}

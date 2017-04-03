@@ -8,9 +8,9 @@ urlpatterns = [
 	url(r'^sell/$', views.sell),
 	url(r'^buy/$', views.buy),
 	url(r'^event/(?P<event>[\w\ ]{0,50})/$', views.event, name='event'),
-	url(r'^login/$', views.login, name='login'),
-    url(r'^logout/$', views.logout, name='logout'),
-    url(r'^oauth/', include('social_django.urls', namespace='social')),  # <--
+	# url(r'^authfb/(?P<first_name>[\w\ ]{0,50})/(?P<last_name>[\w\ ]{0,50})/(?P<fb_id>[0-9]+)/$', views.authfb),
+	url(r'^authfb/$', views.authfb),
+	url(r'^authsteptwo/$', views.auth_step_two),
     # url(r'^authfb/$', views.authfb),
 	# url(r'^authfbfrompage/$', views.authfbfrompage),
 	# url(r'^update_fb_picture_url/$', views.update_fb_picture_url),

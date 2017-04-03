@@ -221,30 +221,39 @@ a:visited{
 	position: relative;
 	color: #091026;
 	margin-left: 56px;
-	margin-top: 1.8%;
+	margin-top: 7px;
 	/*margin-bottom: 30px;*/
-	display: inline-block;
+	/*display: inline-block;*/
+	float: left;
 
 }
 
 .navigation{
     position: relative;
-    margin-left: 35%;
-	display: inline-block;
+    /*margin-left: 35%;
+	display: inline-block;*/
+	float: right;
 }
+
+.header_line{
+    position: block;
+	padding-top:20px;
+}
+
+
 
 .navigation_link{
 	position: relative;
 	display: inline-block;
 	font-size: 14px;
 	color: #06070e;
-	margin-left: 55px;
+	margin-right: 55px;
 }
 
 .navigation_profile_link{
 
 	display: inline-block;
-	margin-left: 56px;
+	/*margin-left: 56px;*/
 	vertical-align: middle;
 
 	/*margin-top: 40px;*/
@@ -268,6 +277,7 @@ a:visited{
 	margin-left: 10px;
 	/* text-align: center;*/
  /* vertical-align: middle;*/
+     margin-right: 32px;
 
 }
 
@@ -278,7 +288,7 @@ a:visited{
 	width: 152px;
 	height: 40px;
 	font-size: 14px;
-	margin-left: 32px;
+	/*margin-left: 32px;*/
 	margin-right: 56px;
 	color: white;
 

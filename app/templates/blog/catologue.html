@@ -4,19 +4,91 @@
 <head>
 <title>Rambam</title>
   <link rel="stylesheet" href="{% static 'css/catologue.css' %}">
-   <script type="text/javascript" src="{% static 'js/production_or_local.js' %}"></script>
+     <script type="text/javascript" src="{% static 'js/production_or_local.js' %}"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 </head>
 <body style="margin: 0 !important;padding: 0 !important;font-family: muse;">
 
+
+<script type="text/javascript">
+	
+ var fb_api_app_id;
+   if (in_production == false){
+     
+      fb_api_app_id = '394555824254104';
+   }
+
+   else{
+       
+        fb_api_app_id = '394391410937212';
+
+   }
+
+	  window.fbAsyncInit = function() {
+  FB.init({
+    // first one is test id
+    appId      : fb_api_app_id,
+    // appId      : '1174285602624484',
+    // appId      : '1136272963092415',
+    cookie     : true,  // enable cookies to allow the server to access
+                        // the session
+    xfbml      : true,  // parse social plugins on this page
+    version    : 'v2.8' // use graph api version 2.8
+  });
+
+  // Now that we've initialized the JavaScript SDK, we call
+  // FB.getLoginStatus().  This function gets the state of the
+  // person visiting this page and can return one of three states to
+  // the callback you provide.  They can be:
+  //
+  // 1. Logged into your app ('connected')
+  // 2. Logged into Facebook, but not your app ('not_authorized')
+  // 3. Not logged into Facebook and can't tell if they are logged into
+  //    your app or not.
+  //
+  // These three cases are handled in the callback function.
+
+  // FB.getLoginStatus(function(response) {
+  //   statusChangeCallback(response);
+  // });
+
+  FB.getLoginStatus(function(response) {
+       if (response.status === 'connected') {
+              FB.api('/me?fields=picture.width(30).height(30)', function(response) {
+                      var profile_picture_url_FB = response.picture.data.url;
+                      $("#profilepicture").attr("src", profile_picture_url_FB);
+
+
+              });
+
+
+
+       }
+    });
+
+  };
+
+  // Load the SDK asynchronously
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
 	<div class="logo_and_navigation">
+	<div class="header_line">
 		<div class="logo"><img src="{% static 'images/tick-tock.png' %}" align="left" /></div>
 		<div class="navigation">
 			<a href="/catologue/" class="navigation_link">Події</a>
 			<a href="" class="navigation_link">FAQ</a>
 			<a href="" class="navigation_link">Про проект</a>
-			<a href="" class="navigation_profile_link"><img style="width: 30px;height: 30px;border-radius:50%;border: solid 1px #ffffff;background-color: gray;display: inline-block; text-align: center;" align="left" /><div class="navigation_profile_username">Sergey Matchuk</div></a>
-			<div class="sell_button"><span style="line-height: 40px;color: #145cfb;" onclick="openNav()">Войти</span></div>
+			<a href="" class="navigation_profile_link"><img id='profilepicture' style="width: 30px;height: 30px;border-radius:50%;border: solid 1px #ffffff;background-color: gray;display: inline-block; text-align: center;" align="left" /><div class="navigation_profile_username">{{ request.user.userprofile.first_name}} {{ request.user.userprofile.last_name}}</div></a>
+			<div class="sell_button"><span style="line-height: 40px;color: #145cfb;" onclick="openNav()">Продати квиток</span></div>
 		</div>	
+	</div>
 		
 
 	</div>

@@ -5,6 +5,7 @@
 <title>Rambam</title>
   <link rel="stylesheet" href="{% static 'css/intro.css' %}">
    <script type="text/javascript" src="{% static 'js/production_or_local.js' %}"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 </head>
 <body style='margin: 0 !important;padding: 0 !important;font-family: muse;' bgcolor="#f8f9fb">
 
@@ -23,6 +24,13 @@
 
    }
 
+// {% if request.user.userprofile.phone_number = 0 %}
+// alert('hello');
+// {% endif  %}
+
+
+
+
 
 
  function statusChangeCallback(response) {
@@ -35,8 +43,8 @@
     if (response.status === 'connected') {
       // Logged into your app and Facebook.
       // testAPI();
-      // authFB();
-      alert('connected');
+      authFB();
+      // alert('connected');
 
     } else if (response.status === 'not_authorized') {
       // The person is logged into Facebook, but not your app.
@@ -50,7 +58,7 @@
       // they are logged into this app or not.
       // document.getElementById('status').innerHTML = 'Please log ' +
       //   'into Facebook.';
-           alert('3');
+           // alert('3');
             loginDialogFB()
     }
   }
@@ -67,10 +75,12 @@
 function loginDialogFB(){
 
   FB.login(function(response){
- 
+   // alert(JSON.stringify(response))
+   // alert(response.authResponse.userID)
+  authFB();
 
       // alert(JSON.stringify(response))
-});
+},  {scope: 'email'} );
 }
 
 
@@ -103,6 +113,20 @@ function loginDialogFB(){
   //   statusChangeCallback(response);
   // });
 
+  FB.getLoginStatus(function(response) {
+       if (response.status === 'connected') {
+              FB.api('/me?fields=picture.width(30).height(30)', function(response) {
+                      var profile_picture_url_FB = response.picture.data.url;
+                      $("#profilepicture").attr("src", profile_picture_url_FB);
+
+
+              });
+
+
+
+       }
+    });
+
   };
 
   // Load the SDK asynchronously
@@ -130,15 +154,70 @@ function loginDialogFB(){
 
 // checkLoginState()
 
-function authFB(){
+function authFB(fb_user_id){
+ $(function() {
+
+  
+  $('.sidenav').append('<div class="loading_white_wall"><div class="sk-cube-grid"><div class="sk-cube sk-cube1"></div><div class="sk-cube sk-cube2"></div><div class="sk-cube sk-cube3"></div><div class="sk-cube sk-cube4"></div><div class="sk-cube sk-cube5"></div><div class="sk-cube sk-cube6"></div><div class="sk-cube sk-cube7"></div><div class="sk-cube sk-cube8"></div><div class="sk-cube sk-cube9"></div></div></div>');
 
 
-FB.api('/me', function(response) {
+  })
 
-var fb_name = response.name;
+FB.api('/me?fields=first_name,last_name,email,name,link', function(response) {
+
+var fb_first_name = response.first_name;
+var fb_last_name = response.last_name;
 var fb_id = response.id;
-// alert(fb_id);
-ajaxPost('/authfb/', {'username': fb_name , 'fb_id': fb_id, 'csrfmiddlewaretoken': getCookie('csrftoken')}, function(){ });
+var fb_email = response.email
+var fb_username = response.name
+var fb_link = response.link
+
+// alert(response.name)
+ 
+// alert(JSON.stringify(response.first_name))
+ 
+// ajaxPost('/authfb/', {'username': fb_first_name , 'fb_id': fb_id}, function(){ 
+$.ajax({
+    url: '/authfb/',
+    type:'POST',
+    dataType: 'json',
+    data: {"fb_first_name": fb_first_name, "fb_last_name": fb_last_name, "fb_username": fb_username, "fb_email":fb_email, "fb_id":fb_id, "fb_link":fb_link},
+    success: function () {
+      
+      // alert('succes');
+      setTimeout(
+  function() 
+  {
+    $('#hide_group').hide();
+    $('#show_group').show();
+    $('.loading_white_wall').fadeOut();
+    $('.greeting_title_name').html(fb_first_name);
+    if(fb_email){
+     
+      $(".email_input").prop("value", fb_email);
+    }
+
+    else{
+
+        $(".email_input").prop("placeholder", 'E-mail');
+    }
+
+
+  }, 1000);
+      
+    },
+    error : function(data) {
+      
+      $('#hide_group').hide();
+      $('#error_group').show();
+      $('.loading_white_wall').fadeOut();
+
+    }
+
+
+  })
+
+// });
 
                                   });
 
@@ -205,7 +284,25 @@ function VKlogin(){
 
 
 
+{% if request.user.is_authenticated %}
 
+
+
+  <div class="logo_and_navigation">
+   <div class="a_header_line">
+    <div class="logo"><img src="{% static 'images/tick-tock.png' %}" /></div>
+    <div class="navigation">
+      <a href="/catologue/" class="navigation_link">Події</a>
+      <a href="" class="navigation_link">FAQ</a>
+      <a href="" class="navigation_link">Про проект</a>
+      <a href="" class="navigation_profile_link"><img id='profilepicture' style="width: 30px;height: 30px;border-radius:50%;border: solid 1px #ffffff;background-color: gray;display: inline-block; text-align: center;" align="left" /><div class="navigation_profile_username">{{ request.user.userprofile.first_name}} {{ request.user.userprofile.last_name}} </div></a>
+      <div class="a_sell_button"><a href="/sell/" style="line-height: 40px;color: #145cfb;">Продати квиток</a></div>
+    </div>
+    </div>  
+
+
+
+{% else %} 
 
 	<div class="logo_and_navigation">
 		<div class="logo"><img src="{% static 'images/tick-tock.png' %}" /></div>
@@ -216,6 +313,8 @@ function VKlogin(){
 			<div class="login_button"><span style="line-height: 40px;color: #145cfb;" onclick="openNav()">Войти</span></div>
 			<div class="sell_button"><a href="/sell/" style="line-height: 40px;color: white">Продати квиток</a></div>
 		</div>	
+
+ {% endif %}   
 		
 
 	</div>
@@ -225,6 +324,7 @@ function VKlogin(){
          <div class="definition">Платформа для покупки та продажу білетів з рук</div>
         
 	         <form class="search_form">
+
 	              <div class="make_elegant_form">
           	         	 <input type="text" placeholder="введіть назву події.." ></input>
                
@@ -403,6 +503,7 @@ function VKlogin(){
       			<div class='footer_left'>
               	    <div class="footer_title">Ваша найулюблиніша платформа для продажу та купівлі квитків</div><br>
               	    <span class="footer_span">Забудьте про переживання під час покупки чи продажі <br> квитка, приєднуйтесь і ми все зробимо за вас</span>
+
                     <div class="footer_navigation"><span class="footer_navigation_element"></span></div>
 	            </div>
 
@@ -415,18 +516,124 @@ function VKlogin(){
 <div id="mySidenav" class="sidenav">
   <div style="position: relative;margin-left: 8.1%;">
      <a href="javascript:void(0)" onclick="closeNav()"><img src="{% static 'images/group.svg' %}" align='left' style="margin-right: 10px;display: inline-block;"><div class="sidenav_close">Закрити</div></a>
-     <span class="sidenav_title">Ввійдить через одну з <br> соціальних мереж</span>
-     <span class="sidenav_text">Залогінившись за допомогою соціальної<br>мережі, ви використовуваєте власний <br>профіль як гарант вашої порядочності</span>
+     <div id="hide_group">
+       <span class="sidenav_title">Ввійдить через одну з <br> соціальних мереж</span>
+       <span class="sidenav_text">Залогінившись за допомогою соціальної<br>мережі, ви використовуваєте власний <br>профіль як гарант вашої порядочності</span>
 
-    <div class="fb-login-button-custom" onClick="checkLoginState();" style="background: url({% static 'images/f-b.png' %});width: 400px;height: 56px;background-color: #3a5998;position:relative;display:block;margin-top: 7.6%;"></div>
-     <!-- <div class="fb-login-button" data-size="large" data-show-faces="false" data-auto-logout-link="false" onlogin="checkLoginState();"></div> -->
-      <div class="vk-login-button-custom" onClick="VKcheckLoginState();" style="background: url({% static 'images/v-k.png' %});width: 400px;height: 56px;margin-top: 1.2%;"></div>
-      <span class="sidenav_prohibited_test"><img src="{% static 'images/prohibited.svg' %}" style="margin-right: 8px;"  align="left" />Ми нічого не будемо публікувати на вашії сторінці</span>
+      <div class="fb-login-button-custom" onClick="checkLoginState();" style="background: url({% static 'images/f-b.png' %});width: 400px;height: 56px;background-color: #3a5998;position:relative;display:block;margin-top: 7.6%;"></div>
+       <!-- <div class="fb-login-button" data-size="large" data-show-faces="false" data-auto-logout-link="false" onlogin="checkLoginState();"></div> -->
+        <div class="vk-login-button-custom" onClick="VKcheckLoginState();" style="background: url({% static 'images/v-k.png' %});width: 400px;height: 56px;margin-top: 1.2%;"></div>
+        <span class="sidenav_prohibited_test"><img src="{% static 'images/prohibited.svg' %}" style="margin-right: 8px;"  align="left" />Ми нічого не будемо публікувати на вашії сторінці</span>
+      </div>
+      <div id="show_group" style="display: none;">
+            <div class="greeting_title"><span class="greeting_title_name"></span>, Привіт!</div>
+            <div class="greeting_text">Для того щоб закінчити реєстрацію, вам необхідно додати вашу електронну пошту та номер телефону</div>
+            <br/>
+            <form class="phone_mail_form">
+                
+                <input type="text"  class="phone_input" placeholder="Номер телефону" ></input>
+                <span class="span_after_phone_input"></span><br/>
+                 <input type="text" class="email_input" ></input><br/>
+                   <span class="span_after_email_input"></span>
+                 <div onclick="sendForm()" class="phone_mail_form_button_div"><span class="phone_mail_form_button_span">Продовжити</span></div>
+            </form>
+      </div>
+        <div id="error_group" style="display: none;">
+          <span class="error_666">Помилка #666</span>
+          <span class="error_666_explain">Виникла помилка при продовженні роботи за допомогою з однієї соціальних мереж</span>
+          <span class="error_666_try_again">Спробуйте ще раз або використайте профіль в іншній соціальнії мережі</span>
+           <div onclick="tryLoginAgain()" class="phone_mail_form_button_div"><span class="phone_mail_form_button_span">Повторити спробу</span>
+
+        </div>
   </div>
 </div>
 
 
 <script type='text/javascript'>
+
+
+var sendForm;
+var tryLoginAgain;
+
+
+// > beginning of jquery 
+
+
+ $(function() {
+
+
+tryLoginAgain = function() {
+      $('#error_group').hide()
+      $('#hide_group').fadeIn()
+}  
+
+  
+sendForm = function(){
+
+ if($('.phone_input').val() === ""){
+
+         
+        $('.phone_input').removeClass('phone_input').addClass('phone_input_error');
+        // $( "<span class='validation_error_text'>Електронна адресса обов'язкове полє</span>" ).insertAfter( ".phone_input" );
+
+        $('.span_after_phone_input').html("<span class='validation_error_text'>Телефоний номер обов'язкове полє</span>")
+}
+
+ else if($('.email_input').val() === ""){
+
+         
+        $('.email_input').removeClass('email_input').addClass('email_input_error');
+        // $( "<span class='validation_error_text'>Електронна адресса обов'язкове полє</span>" ).insertAfter( ".phone_input" );
+
+        $('.span_after_email_input').html("<span class='validation_error_text'>Електронна адресса обов'язкове полє</span>")
+}
+
+else{
+
+phone_number = $('.phone_input').val()
+email = $('.email_input').val() 
+
+  $.ajax({
+    url: '/authsteptwo/',
+    type:'POST',
+    dataType: 'json',
+    data: {"phone_number":phone_number, "email":email},
+    success: function () {
+      
+      // alert('succes');
+      setTimeout(
+  function() 
+  {
+      alert('fine');
+  }, 0);
+      
+    },
+    error : function(data) {
+      
+    
+        alert('fck');
+    }
+
+
+  })
+
+   
+}
+
+
+
+
+}
+
+  
+
+  });
+
+// < end of jquery 
+
+
+// >function open-close side menu to logn
+
 function openNav() {
     document.getElementById("mySidenav").style.width = "558px";
     document.getElementById("main").style.marginLeft = "250px";
@@ -436,6 +643,8 @@ function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
     document.getElementById("main").style.marginLeft= "0";
 }
+
+// <function open-close side menu to logn
 </script>
 
 </body>

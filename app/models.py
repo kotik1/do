@@ -7,12 +7,11 @@ from django.contrib.auth.models import User
 class UserProfile(models.Model):
 	user = models.OneToOneField(User)
 	sn_link = models.CharField(max_length=100)
-	SN_OPTIONS  = (
-    ('1', 'facebook'),
-    ('2', 'vk'),
-	)
-	sn = models.CharField(choices=SN_OPTIONS, max_length=2)
-	phone_number = models.IntegerField()
+	phone_number = models.IntegerField(blank=True, default=0)
+	email = models.CharField(max_length=100, blank=True)
+	first_name = models.CharField(max_length=100)
+	last_name = models.CharField(max_length=100)
+	sn_id = models.IntegerField(blank=False, default=0)
 
 class Event(models.Model):
 	title = models.CharField(max_length=200)

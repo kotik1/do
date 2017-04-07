@@ -11,6 +11,8 @@ urlpatterns = [
 	# url(r'^authfb/(?P<first_name>[\w\ ]{0,50})/(?P<last_name>[\w\ ]{0,50})/(?P<fb_id>[0-9]+)/$', views.authfb),
 	url(r'^authfb/$', views.authfb),
 	url(r'^authsteptwo/$', views.auth_step_two),
+	url(r'^upload_ticket/$', views.upload_ticket),
+	url(r'^live_search/$', views.live_search),
     # url(r'^authfb/$', views.authfb),
 	# url(r'^authfbfrompage/$', views.authfbfrompage),
 	# url(r'^update_fb_picture_url/$', views.update_fb_picture_url),

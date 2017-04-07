@@ -305,6 +305,7 @@ function VKlogin(){
 {% else %} 
 
 	<div class="logo_and_navigation">
+   <div class="a_header_line">
 		<div class="logo"><img src="{% static 'images/tick-tock.png' %}" /></div>
 		<div class="navigation">
 			<a href="/catologue/" class="navigation_link">Події</a>
@@ -313,7 +314,7 @@ function VKlogin(){
 			<div class="login_button"><span style="line-height: 40px;color: #145cfb;" onclick="openNav()">Войти</span></div>
 			<div class="sell_button"><a href="/sell/" style="line-height: 40px;color: white">Продати квиток</a></div>
 		</div>	
-
+ </div>
  {% endif %}   
 		
 
@@ -373,8 +374,8 @@ function VKlogin(){
                     </div>
               </div>
 
-			 {% for el in parsing %}
-			<div style="width: 180px;display: inline-block;margin-left: 30px;margin-top: 20px;border: solid 1px #f8f9fb;box-shadow: 0 0 3px 0 rgba(6,7,14,0.12);;">
+		<!-- 	 {% for el in parsing %}
+			<div style="width: 210px;display: inline-block;margin-left: 30px;margin-top: 20px;border: solid 1px #f8f9fb;box-shadow: 0 0 3px 0 rgba(6,7,14,0.12);">
 				 <div style="height: 151px; background: url('{{ el.image }}') no-repeat; background-size: cover;/*filter: contrast(1.35);*/"></div>
 				 <div style="height: 129px;margin-left: 12px;">
               <span class="event_date">12 НОЯБРЯ, СУББОТА 21:00</span>
@@ -387,7 +388,24 @@ function VKlogin(){
 			</div>
 			
 			
-			{% endfor %}
+			{% endfor %} -->
+
+      {% for event in events %}
+      <a href="/event/{{ event.id}}">
+      <div style="width: 216px;display: inline-block;margin-left: 30px;border: solid 1px #f8f9fb;box-shadow: 0 0 3px 0 rgba(6,7,14,0.12);;">
+         <div style="height: 200px; background: url('{{ event.image_link }}') no-repeat; background-size: cover;/*filter: contrast(1.35);*/"></div>
+         <div style="height: 109px;margin-left: 12px;">
+              <span class="event_date"> {{ event.date}}</span>
+              <span class="event_title">{{ event.title }}</span>
+              <span class="event_place">{{ event.city}}, {{ event.place }}</span>
+
+            <!--   <span class="event_hashtag">#</span> -->
+
+         </div>
+      </div>
+      
+    </a>
+      {% endfor %}
       </div>
 
       <div class="mission">

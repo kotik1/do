@@ -9,6 +9,8 @@ from django_cron import CronJobBase, Schedule
 from django.core.paginator import Paginator
 from .models import *
 
+from .serializers import *
+
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
@@ -17,6 +19,7 @@ from .forms import TicketForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib import auth
+from django.core import serializers
 
 # from .forms import AuthForm
 from django.contrib.auth.forms import UserCreationForm
@@ -86,34 +89,43 @@ def auth_step_two(request):
         print("WTF")
     return Response(request.data)
 
+@api_view(['POST', ])
+def live_search(request):
+    if request.method == 'POST':
+        key = request.data['key']
+        result = Event.objects.filter(title__istartswith=key)
+        events = serializers.serialize('json', result)
+        print (result)
+    else:
+        error = "Fuck"
+        return error
+    data = {
+        'events': events,
+
+    }
+    return Response(data)
+
+
+
+def upload_ticket(request):
+    if request.method == 'POST':
+        form = TicketForm(request.POST)
+        if form.is_valid():
+            # ticket.upload = form.save(commit=False)
+            # print (type(ticket.upload))
+            ticket = form.save(commit=False)
+            ticket.ownership = request.user.userprofile
+            ticket.event = Event.objects.get(id=2)
+            ticket.save()
+    else:
+        print("WTF")
+    return render(request, "blog/intro.html",{})
+
+
 
 def intro(request):
-	page = requests.get('https://karabas.com')
-	tree = html.fromstring(page.content)
-	titles = tree.xpath('//div[@class="hidden-info"]/p/text()')
-	# images = tree.xpath('//div[@class="hidden-info"]/p/text()')
-	images = tree.xpath('//div[@class="posters-middle"]/a/img/@src')
-	# parsing = [{'title': title, 'image': image} for title, image in zip(titles, images)]
-	parsing0 = Fugazi(titles[0],images[0])
-	parsing1 = Fugazi(titles[1],images[1])
-	parsing2 = Fugazi(titles[2],images[2])
-	parsing3 = Fugazi(titles[3],images[3])
-	parsing4 = Fugazi(titles[4],images[4])
-	parsing5 = Fugazi(titles[5],images[5])
-	# print parsing0.image()
-	parsing = [ parsing0, parsing1, parsing2, parsing3, parsing4, parsing5]
-	# for i in range(5):
-	# 	i = Fugazi()
-	# first_five = parsing[:5]
-	# print(posters)
-	# parsing = {}
-	# for idx,title in enumerate(titles):
-	# 	for poster in posters:
-	# 		link = parsing[idx]
-	# 		link['title'] = title
-	# 		link['image'] = image
-		# print(link['image'])
-	return render(request, "blog/intro.html", {'parsing':parsing})
+  events  = Event.objects.all()[:5]
+  return render(request, "blog/intro.html", {'events':events})
 
 
 def catologue(request, page_number=1):

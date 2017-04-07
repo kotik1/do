@@ -1,92 +1,331 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
 	<title></title>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="{% static 'js/dropzone.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/sell.css' %}">
+       <link href="{% static 'css/dropzone.css' %}" type="text/css" rel="stylesheet"/>
+
 </head>
 <body>
 
-<style type="text/css">
-	
-.sk-cube-grid {
-  width: 70px;
-  height: 70px;
-  margin: 100px auto;
+
+
+
+<script type="text/javascript">
+
+ $(function() {
+
+  // $("div#myId").dropzone({ url: "/file/post" });
+
+// function upload() {
+// //    // alert($('#fileinput').val())
+// //    var formElement = document.querySelector("#fileinput");
+// //    var formData = new FormData(formElement);
+// //    // alert(formData)
+
+// //    $.ajax({
+// //         url: '/upload_ticket/',
+// //         type : "POST", // http method
+// //         processData: false,  // tell jQuery not to process the data
+// //         contentType: false   // tell jQuery not to set contentType
+// //         data : { file : formData, csrfmiddlewaretoken: "{{ csrf_token }}" }, // data sent with the post request
+
+// //         // handle a successful response
+// //         success : function() {
+// //           alert('succes');
+// //         },
+
+// //         // handle a non-successful response
+// //         error : function() {
+// //            alert('error');
+// //         }
+// //     });
+// // };
+
+ 
+
+
+
+
+// //     $('.pdf_form').on('submit', function(e){
+// //     e.preventDefault();
+// //     alert('it works!');
+// //     console.log("form submitted!")  // sanity check
+// //     upload();
+// // });
+
+var obj = $("#dragandrophandler");
+obj.on('dragenter', function (e) 
+{
+    e.stopPropagation();
+    e.preventDefault();
+    $(this).css('border', '2px solid #0B85A1');
+});
+obj.on('dragover', function (e) 
+{
+     e.stopPropagation();
+     e.preventDefault();
+});
+obj.on('drop', function (e) 
+{
+ 
+     $(this).css('border', '2px dotted #0B85A1');
+     e.preventDefault();
+     var files = e.originalEvent.dataTransfer.files;
+ 
+     //We need to send dropped files to Server
+     handleFileUpload(files,obj);
+});
+
+
+$(document).on('dragenter', function (e) 
+{
+    e.stopPropagation();
+    e.preventDefault();
+});
+$(document).on('dragover', function (e) 
+{
+  e.stopPropagation();
+  e.preventDefault();
+  obj.css('border', '2px dotted #0B85A1');
+});
+$(document).on('drop', function (e) 
+{
+    e.stopPropagation();
+    e.preventDefault();
+});
+
+function handleFileUpload(files,obj)
+{
+   for (var i = 0; i < files.length; i++) 
+   {
+        var fd = new FormData();
+        fd.append('file', files[i]);
+ 
+        // var status = new createStatusbar(obj); //Using this we can set progress.
+        // status.setFileNameSize(files[i].name,files[i].size);
+        // sendFileToServer(fd,status);
+        alert(fd);
+ 
+   }
 }
 
-.sk-cube-grid .sk-cube {
-  width: 33%;
-  height: 33%;
-  background-color: #145cfb;
-  float: left;
-  -webkit-animation: sk-cubeGridScaleDelay 1.0s infinite ease-in-out;
-          animation: sk-cubeGridScaleDelay 1.0s infinite ease-in-out; 
-}
-.sk-cube-grid .sk-cube1 {
-  -webkit-animation-delay: 0.2s;
-          animation-delay: 0.2s; }
-.sk-cube-grid .sk-cube2 {
-  -webkit-animation-delay: 0.3s;
-          animation-delay: 0.3s; }
-.sk-cube-grid .sk-cube3 {
-  -webkit-animation-delay: 0.4s;
-          animation-delay: 0.4s; }
-.sk-cube-grid .sk-cube4 {
-  -webkit-animation-delay: 0.1s;
-          animation-delay: 0.1s; }
-.sk-cube-grid .sk-cube5 {
-  -webkit-animation-delay: 0.2s;
-          animation-delay: 0.2s; }
-.sk-cube-grid .sk-cube6 {
-  -webkit-animation-delay: 0.3s;
-          animation-delay: 0.3s; }
-.sk-cube-grid .sk-cube7 {
-  -webkit-animation-delay: 0s;
-          animation-delay: 0s; }
-.sk-cube-grid .sk-cube8 {
-  -webkit-animation-delay: 0.1s;
-          animation-delay: 0.1s; }
-.sk-cube-grid .sk-cube9 {
-  -webkit-animation-delay: 0.2s;
-          animation-delay: 0.2s; }
+$('#get_from_folder').click(function(){
 
-@-webkit-keyframes sk-cubeGridScaleDelay {
-  0%, 70%, 100% {
-    -webkit-transform: scale3D(1, 1, 1);
-            transform: scale3D(1, 1, 1);
-  } 35% {
-    -webkit-transform: scale3D(0, 0, 1);
-            transform: scale3D(0, 0, 1); 
-  }
-}
+$('#fileinput').trigger('click'); 
 
-@keyframes sk-cubeGridScaleDelay {
-  0%, 70%, 100% {
-    -webkit-transform: scale3D(1, 1, 1);
-            transform: scale3D(1, 1, 1);
-  } 35% {
-    -webkit-transform: scale3D(0, 0, 1);
-            transform: scale3D(0, 0, 1);
-  } 
-}
-</style>
 
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Upload</button>
-  </form>
+})
 
-<div class="sk-cube-grid">
-  <div class="sk-cube sk-cube1"></div>
-  <div class="sk-cube sk-cube2"></div>
-  <div class="sk-cube sk-cube3"></div>
-  <div class="sk-cube sk-cube4"></div>
-  <div class="sk-cube sk-cube5"></div>
-  <div class="sk-cube sk-cube6"></div>
-  <div class="sk-cube sk-cube7"></div>
-  <div class="sk-cube sk-cube8"></div>
-  <div class="sk-cube sk-cube9"></div>
+});
+
+</script>
+
+  <div class="logo_and_navigation">
+  <div class="header_line">
+    <div class="logo"><img src="{% static 'images/tick-tock.png' %}" align="left" /></div>
+    <div class="navigation">
+      <a href="/catologue/" class="navigation_link">Події</a>
+      <a href="" class="navigation_link">FAQ</a>
+      <a href="" class="navigation_link">Про проект</a>
+      <a href="" class="navigation_profile_link"><img id='profilepicture' style="width: 30px;height: 30px;border-radius:50%;border: solid 1px #ffffff;background-color: gray;display: inline-block; text-align: center;" align="left" /><div class="navigation_profile_username">{{ request.user.userprofile.first_name}} {{ request.user.userprofile.last_name}}</div></a>
+      <div class="sell_button"><a href="/sell/" style="line-height: 40px;color: #145cfb;text-decoration: none;" onclick="openNav()">Продати квиток</a></div>
+    </div>  
+  </div>
+    
+
+  </div>
+
+
+<div class="b-g">
+  <div class="page_desc">
+    <span class="davai_prodavai">Продати Квиток</span>
+    <span class="ti_sho_tupoy">Не зможете відвідати подію? Продавайте квиток без зайвих зусиль</span>
+  </div>
+  
+
 </div>
 
+
+
+
+
+
+<div class="hamez">
+
+<!-- 
+<form action="/file-upload" class="dropzone">
+  <div class="fallback" style="width: 100px;height: 100px;background: red;">
+    <input name="file" type="file" multiple />
+  </div>
+</form>
+ -->
+
+
+<!-- 
+<form class="dropzone"  method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="fallback">
+                <input name="file" type="file" multiple />
+            </div>
+        </form> -->
+
+
+
+
+<!-- <form action="/upload_ticket/" 
+      method='POST'
+      class="dropzone"
+      id="my-awesome-dropzone"
+      enctype="multipart/form-data">
+ {% csrf_token %}
+            <div class="fallback">
+                <input name="pdf" type="file" multiple />
+            </div>
+
+             <button type="submit" style="margin-top: 400px;width: 300px;height: 90px;">Save</button>
+      </form> -->
+  
+  <form method='POST' action="/upload_ticket/" enctype="multipart/form-data" class="pdf_form">
+{% csrf_token %}
+            {{ form.as_p }}
+
+  
+     <!--  <button type="submit">Save</button> -->
+  </form>
+
+
+  <span class="point_text" style="display: block;
+  margin-top: 51px;">
+  Оберіть подію, на яку бажаєте продати квиток
+</span>  
+
+          <form class="search_form">
+                <div class="make_elegant_form">
+                       <input type="text" placeholder="введіть назву події.." onchange="liveSearch()" id="search_field"></input>
+               
+                                 
+                                 <div type='button' class="city_select">
+
+
+                                 <img class='location_img' src="{% static 'images/location.png' %}"/>
+                                 <div style="line-height: 48px;display: inline-block;margin-left: 7px;">Київ</div>
+
+
+
+                                </div>
+                     
+                           
+
+                  
+               
+                </div>
+                      <input type="button" value="Знайти"  сlass="search_button"></input>
+                      <div class="search_result_container" style="position: absolute;width: 713px;height: 190px;z-index: 2;margin-top:4px;background: yellow;"></div>
+           </form>
+
+
+
+<span class="point_text" style="display: block;
+  margin-top: 51px;">
+  Деталі квитка
+</span>  
+
+<div class="number_of_tickets_output_field">
+  <span class="number_of_tickets_title">Кількість квитків</span><br/>
+   <span class="the_very_number_of_tickets">1</span>
+</div>
+
+
+<div style="display: inline-block;">
+    
+    <div class="math_operation_trigger" id="plus_trigger"></div>
+    <div class="math_operation_trigger" id="minus_trigger"></div>
+
+</div>
+
+<span class="point_text" style="display: block;
+  margin-top: 51px;">
+  Тип квитка
+</span>
+
+
+<div class="ticket_option" id="e_ticket"><span style="line-height: 50px">Електронний</span></div>
+<div class="ticket_option" id="a_ticket"><span style="line-height: 50px;opacity: 0.5;
+">Аналоговий</span></div>
+
+
+<textarea class="explain_why_please" placeholder="Інші коментарі(тут ви можете вказати тип квитка, та причину продажу)"></textarea>
+
+<span class="point_text" style="display: block;
+  margin-top: 51px;">
+  Завантажте квиток
+</span>
+
+<div id="dragandrophandler">
+
+<div style="position:relative;margin-left: 28px;margin-top: 33px;">
+  
+<span class="d_and_d_text">Перетяніть файли в дану зону, <br>
+або <u style="color: #44a4ff;" id="get_from_folder">оберіть в папці</u><br><br>
+<span class="only_pdf_text">Підтримуються файли тільки в форматі PDF</span>
+</span></div>
+</div>
+
+
+</div>
+
+<script type="text/javascript">
+  
+
+
+ $(function() {
+
+$('#search_field').keyup(function(event) {
+ // alert($('#search_field').val());
+
+
+ var key = $('#search_field').val()
+
+   $.ajax({
+        url: '/live_search/',
+        type : "POST", // http method
+        dataType: 'json',
+        data : { key : key, csrfmiddlewaretoken: "{{ csrf_token }}" }, // data sent with the post request
+
+        // handle a successful response
+        success : function(data) {
+                 alert(JSON.stringify(data));
+             // var sed = JSON.parse(data['events']);
+             // alert(JSON.stringify(sed))
+             // alert(sed[0].place)
+             // alert(sed[0].title);
+          // alert('succes');
+            $('.search_result_container').html();
+           $('.search_result_container').html(data['events'][0]);
+                  for (var e in data) {
+                              // $('.search_result_container').append(e);
+                               // alert(JSON.stringify(e))
+                              alert(e.fields.title);
+                              
+                          }
+        },
+
+        // handle a non-successful response
+        error : function() {
+           alert('error');
+        }
+    });
+
+});
+
+
+
+ })
+
+</script>
 </body>
 </html>

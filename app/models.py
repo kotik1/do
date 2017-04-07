@@ -23,8 +23,8 @@ class Event(models.Model):
 	image_link = models.CharField(max_length=2000, default='https://pp.userapi.com/c626925/v626925096/1a33f/JD7FoQDRqXY.jpg')
 
 class Ticket(models.Model):
-	upload = models.FileField(upload_to='/tickets/', default='https://pp.userapi.com/c626925/v626925096/1a33f/JD7FoQDRqXY.jpg')
-	ownership = models.OneToOneField(UserProfile)
-	event = models.OneToOneField(Event)
+	upload = models.FileField(upload_to='media/tickets/')
+	ownership = models.ForeignKey(UserProfile)
+	event = models.ForeignKey(Event)
 	approved = models.BooleanField(default=False)
 	sold = models.BooleanField(default=False)

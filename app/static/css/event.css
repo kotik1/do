@@ -22,13 +22,14 @@ body {
 }
 
 a:link{
+	
 	text-decoration: none;
-	color: black;
+	
 }
 
 a:visited{
 
-	color: black;
+		 text-decoration: none;
 }
 
 
@@ -221,6 +222,7 @@ border: solid 1px #145cfb;
 	color: #145cfb;
 	margin-left: 7.5%;
 	line-height: 48px;
+	text-transform: lowercase;
 }
 
 
@@ -244,12 +246,14 @@ box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
 }
 
 .one_right{
-	position: relative;
+	position: absolute;
 	display: inline-block;
 	/*background:yellow;*/
 	width: 20%;
-	margin-left: 10%;
-	margin-top: -340px;
+	height: 500px;
+	margin-left: 15%;
+	/*margin-bottom: 200px;*/
+	margin-top: -80px;
 
 }
 
@@ -318,7 +322,7 @@ box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
 .event_description{
 
 
-		/*width: 771px;*/
+		width: 120%;
 	/*height: 96px;*/
 	opacity: 0.5;
 	font-size: 14px;

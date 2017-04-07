@@ -44,7 +44,17 @@
 .sk-cube-grid .sk-cube5 {
   -webkit-animation-delay: 0.2s;
           animation-delay: 0.2s; }
-.sk-cube-grid .sk-cube6 {
+.s
+#my-awesome-dropzone{
+
+	/*	width: 20%;
+	height: 1%;*/
+	background: #f8f9fb;
+	margin-left: 70px;
+	margin-top: 40px;
+	border: dashed 2px #145cfb;
+
+}k-cube-grid .sk-cube6 {
   -webkit-animation-delay: 0.3s;
           animation-delay: 0.3s; }
 .sk-cube-grid .sk-cube7 {
@@ -218,7 +228,7 @@ line-height: 48px;
 	float: right;
 	width: 66px;
 
-	   margin-right: -450px;
+	   margin-right: -30%;
 	
   /* display: inline-block;*/
 	  
@@ -746,9 +756,9 @@ width: 300px;
 .events_parsing{
    height: 480px;
    background: white;
-   /*width: 87%;*/
+   width: 90%;
    position: relative;
-   margin-left: 5%;
+   margin-left: 3%;
    margin-top: 80px;
   padding-left: 3.0%;
    padding-top: 20px;

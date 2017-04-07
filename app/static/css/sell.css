@@ -1,0 +1,480 @@
+@font-face {
+    font-family: muse;
+    src: url('../fonts/museosansotf.otf');
+}
+
+@font-face {
+    font-family: muse_bold;
+    src: url('../fonts/muse500bold.ttf');
+}
+
+@font-face {
+    font-family: muse_light;
+    src: url('../fonts/MuseoSansLight.ttf');
+}
+
+body {    
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: muse_light;
+    
+}
+
+a:link{
+	text-decoration: none;
+	color: black;
+}
+
+a:visited{
+
+	color: black;
+}
+
+
+
+
+.logo_and_navigation {
+	position: relative;
+    margin-left:auto;
+	width: 100%;
+	height: 80px;
+	background:white;
+}
+
+
+.logo{
+	position: relative;
+	color: #091026;
+	margin-left: 56px;
+	margin-top: 7px;
+	/*margin-bottom: 30px;*/
+	/*display: inline-block;*/
+	float: left;
+
+}
+
+.navigation{
+    position: relative;
+    /*margin-left: 35%;
+	display: inline-block;*/
+	float: right;
+}
+
+.header_line{
+    position: block;
+	padding-top:20px;
+}
+
+
+
+.navigation_link{
+	position: relative;
+	display: inline-block;
+	font-size: 14px;
+	color: #06070e;
+	margin-right: 55px;
+}
+
+.navigation_profile_link{
+
+	display: inline-block;
+	/*margin-left: 56px;*/
+	vertical-align: middle;
+
+	/*margin-top: 40px;*/
+}
+
+
+.navigation_profile_username{
+    display: inline-block;
+	/*object-fit: contain;*/
+	font-family: muse_bold;
+	margin-top: 7px;
+	font-size: 14px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	/*  height: 30px;*/
+	/* margin-bottom: 20px;*/
+	letter-spacing: normal;
+/*	text-align: left;*/
+	color: #091026;
+	margin-left: 10px;
+	/* text-align: center;*/
+ /* vertical-align: middle;*/
+     margin-right: 32px;
+
+}
+
+
+
+.sell_button{
+	display: inline-block;
+	width: 152px;
+	height: 40px;
+	font-size: 14px;
+	/*margin-left: 32px;*/
+	margin-right: 56px;
+	color: white;
+
+	text-align: center;
+border: solid 1px #145cfb;
+    
+	box-shadow: 0 0 4px 0 rgba(20, 92, 251, 0.42);
+
+
+
+
+}
+
+
+.b-g{
+
+
+		width: 100%;
+	height: 189px;
+	background-color: #f8f9fb;
+
+}
+
+
+
+.page_desc{
+   position: relative;
+	margin-left: 7.3%;
+	padding-top: 55px;
+}
+.davai_prodavai{
+
+
+	width: 274px;
+	height: 36px;
+	opacity: 0.87;
+	display: block;
+	font-size: 36px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: 1.0;
+	letter-spacing: normal;
+	text-align: left;
+	color: #06070e;
+
+}
+
+
+.ti_sho_tupoy{
+
+	width: 665px;
+	height: 22px;
+	display: block;
+	margin-top: 10px;
+	opacity: 0.5;
+	font-size: 16px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: 1.38;
+	letter-spacing: normal;
+	text-align: left;
+	color: #000000;
+}
+
+
+.how_to_sell{
+    width:100%;
+	height: 189px;
+	border-bottom: solid 6px #f8f9fb;
+
+}
+
+
+.hamez{
+
+margin-left: 7%;
+}
+
+
+.make_elegant_form{
+    position: relative;
+    display: inline-block;
+   /* max-width: 576px;*/
+    margin-top: 1.9%;
+    box-shadow: 0 0 4px 0 rgba(8, 15, 38, 0.1);
+
+}
+
+
+.search_form{
+	position: relative;
+	display: inline;
+}
+
+.search_form input[type='text']{
+    
+
+	
+	
+	width: 560px;
+	height: 48px;
+	background-color: #ffffff;
+	box-shadow: 0 0 4px 0 rgba(8, 15, 38, 0.1);
+	font-family: muse;
+	font-size: 16px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	
+	letter-spacing: normal;
+	text-align: left;
+	color: #000000;
+
+	  border: none;
+    outline: none;
+    padding-left: 50px;
+    background-image:url('http://i47.tinypic.com/r02vbq.png');
+background-repeat:no-repeat;
+background-position:left center;outline:0;
+   /* margin-right: 50px;*/
+    
+}
+
+
+
+
+.search_form input[type='button']{
+  
+ 
+	width: 140px;
+	height: 52px;
+	background-color: #145cfb;
+	border:none;
+	color: white;
+	box-shadow: 0 0 4px 0 rgba(20, 92, 251, 0.42);
+	
+	display: inline-block;
+    position: relative;
+    margin-left: 3px;
+    /*left: -30px;*/
+	
+
+
+
+}
+
+	
+
+
+.city_select{
+  display: inline-block;
+ font-size: 14px;
+  padding: 2px 30px 0px 30px;
+ /* height: 48px;*/
+  background: #ffffff;
+
+  text-align: center;
+  opacity: 10%;
+
+  margin-left: -10px;
+  /*margin-top: -16px;*/
+
+
+
+
+}
+
+
+.city_select:hover{
+
+	background-color: #f8f9fb;
+	cursor: pointer;
+}
+
+
+
+.math_operation_trigger{
+
+	width: 48px;
+	height: 22px;
+	
+	
+  border-radius: 1px;
+}
+
+
+#plus_trigger{
+	display: block;
+margin-bottom: 4px;
+background-color: #145cfb;
+border: solid 1px #145cfb;
+}
+
+#minus_trigger{
+
+position: relative;
+margin-bottom: -10px;
+border: solid 1px #145cfb;
+
+}
+
+
+
+
+.number_of_tickets_output_field{
+
+		width: 136px;
+	height: 44px;
+	background-color: #ffffff;
+	border: solid 1px #e8e8e8;
+	position: relative;
+	margin-top: 24px;
+	padding-left: 14px;
+    padding-top: 4px;
+     padding-bottom: 3px;
+     display: inline-block;
+
+}
+
+
+.number_of_tickets_title{
+
+	width: 83px;
+	height: 10px;
+	opacity: 0.5;
+	font-size: 11px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: 1.0;
+	letter-spacing: 0.4px;
+	text-align: left;
+	color: #000000;
+}
+
+
+.the_very_number_of_tickets{
+
+		width: 8px;
+	height: 16px;
+	opacity: 0.8;
+	font-size: 16px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: 1.0;
+	letter-spacing: normal;
+	text-align: left;
+	display: block;
+	margin-top: 6px;
+	color: #000000;
+}
+
+.explain_why_please{
+
+	width: 463px;
+	height: 124px;
+	background-color: #ffffff;
+	border: solid 1px #e8e8e8;
+	margin-top: 38px;
+	padding: 10px;
+	opacity: 0.8;
+	font-size: 11px;
+
+	display: block;
+}
+
+
+.point_text{
+
+		/*width: 204px;*/
+	height: 22px;
+	font-size: 22px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: 1.0;
+	letter-spacing: 0.6px;
+	text-align: left;
+	color: #000000;
+	
+
+}
+
+
+.ticket_option{
+    text-align: center;
+	width: 147px;
+	height: 50px;
+	background-color: #f8f9fb;
+	display: inline-block;
+	margin-top: 24px;
+    
+}
+
+
+#a_ticket{
+
+	margin-left: 6px;
+}
+
+
+#e_ticket{
+
+		border: solid 1px #145cfb;
+		color: #145cfb;
+
+}
+
+
+
+#dragandrophandler{
+border:2px dotted #0B85A1;
+	width: 490px;
+	height: 138px;
+	background-color: #f8f9fb;
+text-align:left;vertical-align:middle;
+padding:10px 10px 10 10px;
+margin-bottom:10px;
+margin-top: 28px;
+/*font-size:200%;*/
+}
+
+
+
+
+.d_and_d_text{
+
+	width: 252px;
+	height: 42px;
+	font-size: 16px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: 1.31;
+	letter-spacing: normal;
+	text-align: left;
+	color: #000000;
+
+}
+
+
+.only_pdf_text{
+
+		width: 245px;
+	height: 14px;
+	opacity: 0.5;
+	font-size: 12px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: normal;
+	letter-spacing: normal;
+	text-align: left;
+	color: #000000;
+
+}
+
+
+.pdf_form{
+display: none;
+}

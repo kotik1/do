@@ -23,7 +23,7 @@
 
 
 	<div class="bg">
-	<div style="display: inline;">
+	<div style="display: inline;position: relative;">
 		<div class="datetime"> {{ event.date}}</div>
 		<div class="event_title">{{event.title}}</div><br/>
 		<div class="event_place">{{event.place}}</div>
@@ -58,9 +58,9 @@
   
   <div class="one_right">
   	<div class="poster" style="width:240px;height:300px;position: relative;
-	/*display: block;*/border-radius:3px;background: url('{{ event.image_link }}') no-repeat;background-size: cover;" ></div> <br/>
+	border-radius:3px;background: url('{{ event.image_link }}') no-repeat;background-size: cover;" ></div> <br/>
   	<div class="under_poster_motivation"> Не можете відвідати дану подію? <br/> Продайте ваш квиток тут</div>
-     <div class="event_sell_button"><a  style="line-height: 40px;">Продати квиток</a></div>
+     <div class="event_sell_button"><a  href='/sell/' style="line-height: 40px;color:white;">Продати квиток</a></div>
 
   </div>
 

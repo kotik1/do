@@ -10,8 +10,11 @@
 <body style="margin: 0 !important;padding: 0 !important;font-family: muse;">
 
 
+
 <script type="text/javascript">
-	
+
+
+
  var fb_api_app_id;
    if (in_production == false){
      
@@ -78,9 +81,12 @@
   }(document, 'script', 'facebook-jssdk'));
 </script>
 
+
+{% if request.user.is_authenticated %}
+
 	<div class="logo_and_navigation">
 	<div class="header_line">
-		<div class="logo"><img src="{% static 'images/tick-tock.png' %}" align="left" /></div>
+		<a href="/"><div class="logo"><img src="{% static 'images/tick-tock.png' %}" align="left" /></div></a>
 		<div class="navigation">
 			<a href="/catologue/" class="navigation_link">Події</a>
 			<a href="" class="navigation_link">FAQ</a>
@@ -94,13 +100,32 @@
 	</div>
 
 
+  {% else %} 
+
+  <div class="logo_and_navigation">
+  <div class="header_line">
+    <a href="/"><div class="logo"><img src="{% static 'images/tick-tock.png' %}" align="left" /></div></a>
+    <div class="navigation">
+      <a href="/catologue/" class="navigation_link">Події</a>
+      <a href="" class="navigation_link">FAQ</a>
+      <a href="" class="navigation_link">Про проект</a>
+          <div class="e_login_button"><span style="line-height: 40px;color: #145cfb;" onclick="openNav()">Войти</span></div>
+      <div class="e_sell_button"><a href="/sell/" style="line-height: 40px;color: white;text-decoration: none;" onclick="openNav()">Продати квиток</a></div>
+    </div>  
+  </div>
+  </div>
+ {% endif %}   
+    
+
+
 
 	<div class="b-g">
 		<div class="b-g-top">
 			<span class="b-g-search-title">Події</span>
-			  <form class="search_form">
+			  <form action="/search/" method="POST" class="search_form">
+        {% csrf_token %}
 	              <div class="make_elegant_form">
-          	         	 <input type="text" placeholder="введіть назву події.." ></input>
+          	         	 <input type="text" placeholder="введіть назву події.." name="key" value="{{ key }}" id="search_field"></input>
                
                     	         	 
                     	         	 <div type='button' class="city_select">
@@ -118,7 +143,10 @@
                   
 	         	   
                 </div>
-                      <input type="button" value="Знайти"  сlass="search_button"></input>
+                      <input type="submit" value="Знайти" сlass="search_button"></input>
+                        <div class="search_result_container" style="position: absolute;width: 713px;z-index: 3;margin-top:7px;margin-left:4%;border-radius: 2px;border:2px solid #f8f9fb;display: none;-webkit-box-shadow: 1px 3px 6px 0px rgba(45, 52, 49, 0.45);
+-moz-box-shadow:    1px 3px 6px 0px rgba(45, 52, 49, 0.45);
+box-shadow:         1px 3px 6px 0px rgba(45, 52, 49, 0.45);"></div>
 	         </form>
 	         <div class="show_filter">Фільтри</div>
 		</div>
@@ -144,17 +172,19 @@
 
 	<div>
 
-	<div style="position: relative;margin-left: 5%;margin-top: 2.3%;">
+	<div id="events_container" style="position: relative;margin-left: 5%;margin-top: 50px;">
 		
       {% for event in events %}
       <a href="/event/{{ event.id}}">
-			<div style="width: 216px;display: inline-block;margin-left: 30px;margin-top: 20px;border: solid 1px #f8f9fb;box-shadow: 0 0 3px 0 rgba(6,7,14,0.12);;">
+			<div class="event_card">
 				 <div style="height: 201px; background: url('{{ event.image_link }}') no-repeat; background-size: cover;/*filter: contrast(1.35);*/"></div>
 				 <div style="height: 109px;margin-left: 12px;">
-              <span class="event_date"> {{ event.date}}</span>
-              <span class="event_title">{{ event.title }}</span>
-              <span class="event_place">{{ event.city}}, {{ event.place }}</span>
+              <div class="event_date"> {{ event.date}}</div>
+              <div class="event_title">{{ event.title|truncatewords:2 }}</div>
+              <div class="event_place"> {{ event.place }}</div>
 
+
+<div class="hashtag_cont"><span class="event_hashtag">#{{ event.hashtag }} </span></div>
             <!--   <span class="event_hashtag">#</span> -->
 
          </div>
@@ -163,9 +193,136 @@
 	  </a>
 			{% endfor %}
 
-	</div>		
+
+
+	</div>	
+
+
+<!--   {% if events_number > 15 %}  -->
+
+  <div class="load_more"><span style="line-height: 48px;opacity: 0.8;
+font-family: muse_bold">Більше подій</span></div>
+
+<!--   {% endif %} -->
 
 	</div>
+  <div class="footer" style="width: 100%;height: 400px;"></div>
+<script type="text/javascript">
 
+var page_number = 1;
+ $(function() {
+
+
+ // $('.search_button').click(function(){
+
+
+ //  alert();
+
+
+
+
+ // }) 
+
+
+$('#search_field').keyup(function(event) {
+
+ $('.chosen_event_container').remove();
+
+ var key = $('#search_field').val()
+
+   $.ajax({
+        url: '/live_search/',
+        type : "POST", // http method
+        dataType: 'json',
+        data : { key : key, csrfmiddlewaretoken: "{{ csrf_token }}" }, // data sent with the post request
+
+        // handle a successful response
+        success : function(data) {
+             var sed = JSON.parse(data['events']);
+             // if (sed.length > 0){
+                 $('.search_result_container').empty();
+              // alert(JSON.stringify(sed));
+
+                     for (var i = 0; i < sed.length; i++) {
+                       var item = sed[i];
+                        
+                       $('.search_result_container').fadeIn();
+                    
+                       $('.search_result_container').append('<a href="/event/' + item.pk +'"><div data-title="' + item.fields.title +'" data-image="' + item.fields.image_link +'"  data-date="' + item.fields.date +'"  data-place="' + item.fields.place +'"  data-hashtag="' + item.fields.hashtag +'" class="search_item"><span class="item_fields_title" >' + item.fields.title +'<span class="item_datetime">' + item.fields.date +'</span></span></div></a>');
+
+
+
+
+                     }
+
+
+        
+        },
+        error : function() {
+            $('.search_result_container').show()
+               $('.search_result_container').empty()
+               $('.search_result_container').append('<div style="position:relative;width:100%;height:54px;background:white;"><span style="line-height:44px;margin-left:30px;">Це мабуть якась помилка. Спробуйте повне перезавантаження сторінки</span></div>')
+        }
+    });
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$('.load_more').click(function(){
+
+
+
+   $.ajax({
+        url: '/load_more/',
+        type : "POST", // http method
+        dataType: 'json',
+        data : {page_number:page_number, csrfmiddlewaretoken: "{{ csrf_token }}" }, 
+        success : function(data) {
+             page_number++;
+
+             var sed = JSON.parse(data['events']);
+             // if (sed.length > 0){
+                 // alert(JSON.stringify(data))
+                     for (var i = 0; i < sed.length; i++) {
+                       var item = sed[i];
+                       
+                    
+                       $('#events_container').append('<a href="/event/' + item.pk +'"><div class="event_card" ><div style="height: 201px; background: url(' + item.fields.image_link + ') no-repeat; background-size: cover;/*filter: contrast(1.35);*/"></div><div style="height: 109px;margin-left: 12px;"><div class="event_date">' + item.fields.date + '</div><div class="event_title">' + item.fields.title + '</div><div class="event_place">' + item.fields.place + '</div><div class="hashtag_cont"><span class="event_hashtag">#' + item.fields.hashtag + ' </span></div></div></a>');
+                       
+
+                    
+
+
+                     } 
+
+                   
+
+        
+        },
+        error:function(){
+               alert('bad');
+        }
+      });
+
+
+})
+
+
+ });
+
+ </script>
 </body>
 </html>

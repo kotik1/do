@@ -31,6 +31,170 @@ a:visited{
 }
 
 
+.submit_button{
+
+
+
+	width: 240px;
+	height: 48px;
+	margin-top: 47px;
+	margin-bottom: 100px;
+	background-color: #145cfb;
+	box-shadow: 0 0 4px 0 rgba(20, 92, 251, 0.42);
+	text-align: center;
+
+}
+
+.search_item{
+
+	position:relative;
+	width:100%;height:54px;background:white;
+	border-bottom: 1px solid #f8f9fb;
+	display: block;
+}
+
+.search_item:hover{
+
+	background-color: #f8f9fb;
+	cursor: pointer;
+
+}
+
+.chosen_event_container{
+    margin-top: 24px;
+	width: 720px;
+	height: 160px;
+	background-color: #ffffff;
+	box-shadow: 0 0 4px 0 rgba(6, 7, 14, 0.15);
+
+}
+
+
+.chosen_event_container_image{
+    
+	width: 160px;
+	height: 160px;
+
+	
+
+}
+
+
+.chosen_event_container_datetime{
+	position: relative;
+	display: block;
+
+    padding-top: 29px;
+	/*width: 200px;*/
+	height: 12px;
+	opacity: 0.9;
+	font-family: muse_light;
+	font-size: 12px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: 1.0;
+	letter-spacing: normal;
+	color: #000000;
+	
+
+}
+
+
+.chosen_event_container_title{
+   
+	position: relative;
+	height: 22px;
+	font-family:muse_bold;
+	font-size: 22px;
+	display: block;
+	margin-top: 11px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: 1.0;
+	letter-spacing: normal;
+	color: #000000;
+}
+
+
+.chosen_event_container_place{
+
+		position: relative;
+	height: 12px;
+	opacity: 0.7;
+	display: block;
+	margin-top: 23px;
+	font-family: muse_light;
+	font-size: 12px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: 1.0;
+	letter-spacing: normal;
+	color: #000000;
+}
+
+
+.hashtag_cont{
+
+		width: 722px;
+	height: 35px;
+	border-top: solid 1px #f0f1f3;
+	margin-top: 18px;
+
+}
+
+
+.hashtag_span{
+
+	width: 49px;
+	height: 12px;
+	font-family: muse_bold;
+	font-size: 12px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: 35px;
+	letter-spacing: normal;
+	color: #091026;
+	text-transform: lowercase;
+
+}
+
+
+.item_fields_title{
+   line-height:44px;margin-left:30px;
+	opacity: 0.8;
+	font-size: 13px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	/*line-height: 1.08;*/
+	position: relative;
+	letter-spacing: normal;
+	text-align: left;
+	color: #000000;
+	 display: block;
+
+}
+
+.item_datetime{
+
+    position: relative;
+    display: block;
+    margin-top: -10px;
+		opacity: 0.9;
+	font-family: muse_light;
+	font-size: 10px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: 1.0;
+	letter-spacing: normal;
+	color: #000000;
+}
+
 
 
 .logo_and_navigation {
@@ -425,6 +589,61 @@ border: solid 1px #145cfb;
 
 }
 
+.sidenav_title{
+	display: block;
+    margin-top: 88px;
+		/*width: 322px;*/
+	height: 76px;
+	opacity: 0.87;
+	font-size: 22px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: normal;
+	letter-spacing: normal;
+	text-align: left;
+	color: #06070e;
+}
+
+.sidenav_text{
+    position: relative;
+    display: block;
+	/*width: 322px;*/
+	height: 72px;
+	opacity: 0.6;
+/*	margin-top: 0.3%;*/
+	font-size: 16px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+/*	line-height: 1.5;*/
+	letter-spacing: normal;
+	color: #000000;
+
+}
+
+.fb-login-button-custom{
+  width: 100px;
+  height: 40px;
+  background:red;
+}
+
+
+.sidenav_prohibited_test{
+	position: relative;
+	display: block;
+    margin-top: 2.7%;
+    margin-bottom: 2.7%;
+	height: 20px;
+	font-family: muse_bold;
+	font-size: 15px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: 1.33;
+	letter-spacing: normal;
+	color: #000000;
+}
 
 
 #dragandrophandler{
@@ -437,6 +656,37 @@ padding:10px 10px 10 10px;
 margin-bottom:10px;
 margin-top: 28px;
 /*font-size:200%;*/
+}
+
+
+.login_button{
+	position: relative;
+	font-size: 14px;
+	margin-right: 50px;
+	display: inline-block;
+	text-align: center;
+	width: 120px;
+	height: 40px;
+	border: solid 1px #145cfb;
+	border: solid 1px #145cfb;
+
+}
+
+.a_sell_button{
+	display: inline-block;
+	width: 152px;
+	height: 40px;
+	font-size: 14px;
+	margin-right: 40px;
+	color: white;
+
+	text-align: center;
+	background-color: #145cfb;
+	box-shadow: 0 0 4px 0 rgba(20, 92, 251, 0.42);
+
+
+
+
 }
 
 

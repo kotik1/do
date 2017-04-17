@@ -13,6 +13,25 @@
     src: url('../fonts/MuseoSansLight.ttf');
 }
 
+.profile_username{
+
+	/*width: 293px;*/
+	height: 15px;
+	font-family: muse_bold;
+	font-size: 28px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: 0.54;
+	letter-spacing: 0.6px;
+	text-align: center;
+	color: #ffffff;
+	/*display: inline-block;*/
+	
+	
+
+
+}
 
 .sk-cube-grid {
   width: 76px;
@@ -251,7 +270,7 @@ line-height: 48px;
 
 
 
-.event_date{
+/*.event_date{
     position: relative;
     display: block;
     margin-top: 14px;
@@ -330,7 +349,102 @@ line-height: 48px;
 	letter-spacing: normal;
 	color: #091026;
 }
+*/
 
+
+.event_card{
+
+	 width: 220px;height:340px;display: inline-block;margin-left: 30px;margin-top: 20px;border: solid 1px #f8f9fb;box-shadow: 0 0 3px 0 rgba(6,7,14,0.12);border-radius: 1px;
+}
+
+
+.event_date{
+    position: relative;
+   /* display: block;*/
+    margin-top: 14px;
+	width: 129px;
+	height: 12px;
+	opacity: 0.9;
+	font-family: muse_light;
+	font-size: 10px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: normal;
+	letter-spacing: normal;
+	color: #000000;
+}
+
+
+.event_title{
+      position: relative;
+  
+    margin-top: 5px;
+	/*width: 198px;*/
+	/*height: 40px;*/
+	
+	font-family: muse_bold;
+	font-size: 16px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	/*line-height: 1.25;*/
+	letter-spacing: normal;
+	color: #000000;
+	
+
+}
+
+
+
+.event_place{
+ position: relative;
+ 
+    margin-top: 5px;
+		width: 177px;
+	height: 10px;
+	opacity: 0.7;
+	font-family: muse_light;
+	font-size: 11px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: 1.2;
+	letter-spacing: normal;
+	color: #000000;
+
+
+}
+
+
+.hashtag_cont{
+   position: relative;
+		
+	
+	border-top: solid 1px #f0f1f3;
+	margin-top: 30px;
+	margin-left: -11px;
+
+}
+
+
+.event_hashtag{
+	display: block;
+margin-top: 15px;
+ margin-left: 10px;
+	font-family: muse_bold;
+	font-size: 14px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: 0.86;
+	letter-spacing: normal;
+	color: #091026;
+	text-transform: lowercase;
+
+
+
+}
 .middle{
 	position: relative;
 	width: 100%;
@@ -542,7 +656,7 @@ background-position:left center;outline:0;
 
 
 
-.search_form input[type='button']{
+.search_form input[type='submit']{
   
  
 	width: 140px;
@@ -561,6 +675,58 @@ background-position:left center;outline:0;
 
 
 }
+
+
+
+.search_item{
+
+	position:relative;
+	width:100%;height:54px;background:white;
+	border-bottom: 1px solid #f8f9fb;
+	display: block;
+}
+
+.search_item:hover{
+
+	background-color: #f8f9fb;
+	cursor: pointer;
+
+}
+
+
+.item_fields_title{
+   line-height:44px;margin-left:30px;
+	opacity: 0.8;
+	font-size: 13px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	/*line-height: 1.08;*/
+	position: relative;
+	letter-spacing: normal;
+	text-align: left;
+	color: #000000;
+	 display: block;
+
+}
+
+.item_datetime{
+
+    position: relative;
+    display: block;
+    margin-top: -10px;
+		opacity: 0.9;
+	font-family: muse_light;
+	font-size: 10px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: 1.0;
+	letter-spacing: normal;
+	color: #000000;
+}
+
+
 
 .phone_mail_form{
 
@@ -1166,7 +1332,7 @@ width: 176px;
    .footer{
 
    		width: 100%;
-	height: 480px;
+	height: 400px;
 	background-color: #091026;
 	/*padding-left: 7.5%;*/
 	padding-top: 4.6%;
@@ -1201,11 +1367,34 @@ width: 176px;
    }
 
 
+   .footer_a{
+
+
+   	font-size:16px;
+   	color: #ffffff;
+   	opacity: 0.6;
+   	margin-left: 40px;
+   }
+
+   .footer_love{
+
+   	margin-top: 50px;
+   }
+
+
    .footer_navigation{
    	position: relative;
    	font-size: 16px;
    	color: #ffffff;
+   	width: 600px;
+   	height: 80px;
+   /*	background: yellow;*/
+   	margin-top: 60px;
+   	margin-left: -40px;
+
    }
+
+
 
 
 

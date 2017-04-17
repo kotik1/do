@@ -14,7 +14,7 @@ from .serializers import *
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
-from .forms import TicketForm
+from .forms import *
 
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
@@ -27,19 +27,6 @@ from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
 @api_view(['POST', ])
 def authfb(request):
-    # print (request.data['fb_first_name'],request.data['fb_last_name'])
-    # if request.method == 'POST':
-    #     first_name = request.data['fb_first_name']
-    #     last_name = request.data['fb_last_name']
-    #     user, created = UserProfile.objects.get_or_create(first_name=first_name)
-    #     if created is False:
-    #         user.last_name = last_name
-    #         user.save()
-    #     else:
-    #         user.last_name = last_name
-    #         user.save()
-    # else:
-    #     return "666"
     require_more_data = True
     if request.method == 'POST':
         first_name = request.data['fb_first_name']
@@ -48,8 +35,6 @@ def authfb(request):
         fb_id = int(request.data['fb_id'])
         fb_link = request.data['fb_link']
         username = fb_username.replace(' ', '')
-        print(fb_link)
-        print (type(fb_id))
 
         # print(username)
         password = '112358'
@@ -74,14 +59,28 @@ def authfb(request):
             print (userprofile)
     else:
         print("WTF")
-    return Response(request.data)
+   
+    print (request.user.userprofile.email)
+    email = request.user.userprofile.email
+    phone_number = request.user.userprofile.phone_number
+    # s_email = serializers.serialize('json', email)
+    # s_phone_number = serializers.serialize('json', phone_number)
+    # print (email)
+    # print (phone_number)
+    data = {
+    'email': email,
+    'phone_number': phone_number,
+    }
+    return Response(data)
+    # return Response(request.data)
 
 @api_view(['POST', ])
 def auth_step_two(request):
     if request.method == 'POST':
+        print('ok')
         phone_number = request.data['phone_number']
         email = request.data['email']
-        user = request.user.UserProfile
+        user = request.user.userprofile
         user.email = email
         user.phone_number = phone_number
         user.save()
@@ -95,6 +94,7 @@ def live_search(request):
         key = request.data['key']
         result = Event.objects.filter(title__istartswith=key)
         events = serializers.serialize('json', result)
+        print (key)
         print (result)
     else:
         error = "Fuck"
@@ -105,6 +105,40 @@ def live_search(request):
     }
     return Response(data)
 
+
+@api_view(['POST', ])
+def load_more(request):
+    if request.method == 'POST':
+        page_number = request.data['page_number']
+        events = Event.objects.all()
+        paginator = Paginator(events,15)
+        current_page = (paginator.page(page_number))
+        s_events = serializers.serialize('json', current_page)
+    else:
+        error = "Fuck"
+        return error
+    data = {
+        'events': s_events,
+
+    }
+    return Response(data)
+
+
+
+
+def search(request):
+    if request.method == 'POST':
+        key = request.POST.get("key")
+        # key = key.decode('utf8')
+        key = key.encode('utf-8', 'replace').decode()
+
+        if key is not None:
+            result = Event.objects.filter(title__istartswith=key)
+            events_number = result.count()
+            return render(request, "blog/catologue.html", {'events':result, 'events_number':events_number,'key':key})
+        else:
+            return redirect('/catologue/')
+        
 
 
 def upload_ticket(request):
@@ -117,22 +151,33 @@ def upload_ticket(request):
             ticket.ownership = request.user.userprofile
             ticket.event = Event.objects.get(id=2)
             ticket.save()
+            print (Ticket.objects.all())
     else:
         print("WTF")
-    return render(request, "blog/intro.html",{})
+    return render(request, "blog/aftersale.html",{})
+
+
+
+# @api_view(['POST', ])
+# def upload_ticket(request):
+#     if request.method == 'POST':
+#         print('ok')
+#     else:
+#         print("WTF")
+#     return render(request, "blog/intro.html",{})
 
 
 
 def intro(request):
-  events  = Event.objects.all()[:5]
+  events  = Event.objects.all().order_by("date")[:5]
   return render(request, "blog/intro.html", {'events':events})
 
 
 def catologue(request, page_number=1):
-	events = Event.objects.all()
-	events_number = Event.objects.all().count()
-	current_page = Paginator(events,15)
-	return render(request, "blog/catologue.html", {'events':current_page.page(page_number), 'events_number':events_number})
+    events = Event.objects.all().order_by("date")
+    events_number = Event.objects.all().count()
+    current_page = Paginator(events,15)
+    return render(request, "blog/catologue.html", {'events':current_page.page(page_number), 'events_number':events_number})
 
 def event(request, event):
     event = Event.objects.get(id=event)
@@ -196,11 +241,14 @@ class MyCronJob(CronJobBase):
                city_date_time = tree_event_page.xpath('//span[@class="place"]/strong/text()')
                city_date_time_str = city_date_time[0]
                city, date_unformat, time_unformat = city_date_time_str.split(",")
+               print(date_unformat)
                hashtag = tree_event_page.xpath('//span[@class="category"]/text()')
                description =  tree_event_page.xpath('//div[@class="about-event"]/div[@class="max-wrap"]/div[@class="text"]/p/text()')
                del description[0]
+               print (hashtag)
                description = ''.join(map(str, description))
                hashtag = ''.join(map(str, hashtag))
+               print (hashtag)
                # print(hashtag, description)
                event, created = Event.objects.get_or_create(title=title[0])
                if created is False:

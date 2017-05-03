@@ -45,6 +45,8 @@
 
 }
 
+
+
 .item_datetime{
 
     position: relative;
@@ -69,6 +71,13 @@
 	text-align: center;
 	margin:auto;
 	margin-top: 40px;
+	opacity: 0.7;
+
+}
+
+.load_more:hover{
+	cursor: pointer;
+	opacity: 1;
 
 }
 
@@ -103,7 +112,8 @@
     margin-top: 5px;
 	/*width: 198px;*/
 	/*height: 40px;*/
-	
+	 white-space: nowrap;
+	overflow: hidden;
 	font-family: muse_bold;
 	font-size: 16px;
 	font-weight: normal;
@@ -133,6 +143,8 @@
 	line-height: 1.2;
 	letter-spacing: normal;
 	color: #000000;
+	 white-space: nowrap;
+	 overflow: hidden;
 
 
 }

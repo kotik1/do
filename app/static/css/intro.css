@@ -15,7 +15,7 @@
 
 .profile_username{
 
-	/*width: 293px;*/
+	
 	height: 15px;
 	font-family: muse_bold;
 	font-size: 28px;
@@ -26,7 +26,7 @@
 	letter-spacing: 0.6px;
 	text-align: center;
 	color: #ffffff;
-	/*display: inline-block;*/
+
 	
 	
 
@@ -66,8 +66,7 @@
 .s
 #my-awesome-dropzone{
 
-	/*	width: 20%;
-	height: 1%;*/
+	
 	background: #f8f9fb;
 	margin-left: 70px;
 	margin-top: 40px;
@@ -120,7 +119,6 @@
 	-webkit-backdrop-filter: blur(2px);
 	backdrop-filter: blur(2px);
 
-/*	background-color: #ffffff;*/
 
 }
 
@@ -135,9 +133,7 @@ a:link{
 	color: black;
 }
 
-/*a:hover{
-	cursor: pointer;
-}*/
+
 
 a:visited{
 
@@ -146,11 +142,6 @@ a:visited{
 
 
 
-.events_title_and_all_events_link{
-    position: relative;
-   /* margin-top: 60px;*/
-    
-}
 
 
 .phone_mail_form_button_div{
@@ -214,6 +205,16 @@ line-height: 48px;
 
 }
 
+.events_title_and_all_events_link{
+    position: relative;
+   /* height: 100px;*/
+   
+    margin-top: 10px;
+  
+    
+
+}
+
 
 .popular_events_title{
 	display: inline-block;
@@ -231,7 +232,8 @@ line-height: 48px;
 	letter-spacing: normal;
 	text-align: left;
 	color: #06070e;
-	/*background:black;*/
+	
+	width: 90%;
 	
 
 
@@ -244,14 +246,14 @@ line-height: 48px;
 	position: relative;
     display: inline-block;
 	/*margin-left: 630px;*/
-	float: right;
+	/*float: right;*/
 	width: 66px;
 
-	   margin-right: -30%;
+	 /*  margin-right: -10%;*/
 	
   /* display: inline-block;*/
 	  
-	height: 70px;
+	/*height: 70px;*/
 	font-family: muse_bold;
 	font-size: 16px;
 	font-weight: normal;
@@ -262,6 +264,11 @@ line-height: 48px;
 	text-align: left;
 	color: #091026;
 	/*background: green;*/
+
+}
+
+.all_events_link:hover{
+opacity: 0.9;
 
 }
 
@@ -354,7 +361,7 @@ line-height: 48px;
 
 .event_card{
 
-	 width: 220px;height:340px;display: inline-block;margin-left: 30px;margin-top: 20px;border: solid 1px #f8f9fb;box-shadow: 0 0 3px 0 rgba(6,7,14,0.12);border-radius: 1px;
+	 width: 220px;height:340px;display: inline-block;margin-left: 2.2%;margin-top: 20px;border: solid 1px #f8f9fb;box-shadow: 0 0 3px 0 rgba(6,7,14,0.12);border-radius: 1px;
 }
 
 
@@ -466,6 +473,7 @@ margin-top: 15px;
     position: relative;
 	display: inline-block;
 	float: right;
+	z-index: -1;
 	/*vertical-align: middle;*/
 	/*
 	margin-right: -800px;*/
@@ -923,13 +931,16 @@ width: 300px;
    height: 480px;
    background: white;
    width: 90%;
-   position: relative;
+   display: inline-block;
    margin-left: 3%;
-   margin-top: 80px;
+margin-top: -60px;
+
   padding-left: 3.0%;
-   padding-top: 20px;
-   z-index: 2;
-   
+  /* padding-top: 10px;*/
+   z-index: 4;
+    white-space: nowrap;
+    overflow: hidden;
+
 }
 
 
@@ -970,8 +981,10 @@ width: 300px;
 }
 
 .mission_points{
-margin-left: 16%;
+  margin-right: auto; margin-left: auto; 
 padding-bottom: 100px;
+width: 1000px;
+
 
 }
 
@@ -981,7 +994,8 @@ padding-bottom: 100px;
 	position: relative;
 	display: inline-block;
 	margin-top: 6.6%;
-	margin-left: 7%;
+
+	margin-left: 9%;
 	font-size: 16px;
 	font-weight: normal;
 	font-style: normal;
@@ -999,6 +1013,7 @@ padding-bottom: 100px;
     width: 100%;
 	height: 580px;
 	background-color: #145cfb;
+	padding-bottom: 30px;
 
 }
 
@@ -1125,8 +1140,19 @@ display: inline-block;
 }
 
 .grey_right_top{
-	display: inline-block;
+/*	display: inline-block;
+	margin-left: 6%;*/
+
+}
+.event_card:hover{
+	box-shadow: 0 0 7px 3px #e8e8e8;
+}
+
+.grey_right_united{
 	margin-left: 6%;
+	vertical-align: middle;
+	display: inline-block;
+
 }
 
 .grey_activity_text{
@@ -1174,7 +1200,7 @@ display: inline-block;
 
      position: relative;
      margin-top: 5%;
-      margin-left: 32%;
+      margin-left: 12%;
 	font-family: muse;
 	font-size: 36px;
 	font-weight: normal;

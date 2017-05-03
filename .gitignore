@@ -1,5 +1,8 @@
 *.pyc
 __pycache__
 denv
+views.py
+models.py
+
 
 

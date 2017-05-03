@@ -1,15 +1,24 @@
-{% load static %}
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+    <!-- {% load static %}
 <!DOCTYPE html>
 <html>
 <head>
 <title>Rambam</title>
   <link rel="stylesheet" href="{% static 'css/event.css' %}">
    <script type="text/javascript" src="{% static 'js/production_or_local.js' %}"></script>
-   
-</head>
-<body style="margin: 0 !important;padding: 0 !important;font-family: muse;">
 
-	<div class="logo_and_navigation">
+       <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  
+  <script type="text/javascript" src={% static 'js/dialog.js' %}></script>
+</head>
+
+<body style="margin: 0 !important;padding: 0 !important;font-family: muse;"> -->
+
+
+<!-- 	<div class="logo_and_navigation">
 		<a href="/"><div class="logo"><img src="{% static 'images/tick-tock.png' %}" align="left" /></div></a>
 		<div class="navigation">
 			<a href="/catologue/" class="navigation_link">Події</a>
@@ -20,7 +29,44 @@
 		</div>	
 		
     
-	</div>
+	</div> -->
+ <link rel="stylesheet" href="{% static 'css/event.css' %}">
+
+  <script type="text/javascript" src={% static 'js/integration.js' %}></script>
+
+  {% if request.user.is_authenticated %}
+
+  <div class="logo_and_navigation">
+  <div class="header_line">
+    <a href="/"><div class="logo"><img src="{% static 'images/tick-tock.png' %}" align="left" /></div></a>
+    <div class="navigation">
+      <a href="/catologue/" class="navigation_link">Події</a>
+      <a href="" class="navigation_link">FAQ</a>
+      <a href="" class="navigation_link">Про проект</a>
+      <div href="" class="navigation_profile_link"><img class='profilepicture' style="width: 30px;height: 30px;border-radius:50%;border: solid 1px #ffffff;background-color: gray;display: inline-block; text-align: center;" align="left" /><div class="navigation_profile_username">{{ request.user.userprofile.first_name}} {{ request.user.userprofile.last_name}}</div></div>
+      <div class="sell_button"><a href="/sell/" style="line-height: 40px;color: #145cfb;text-decoration: none;" >Продати квиток</a></div>
+    </div>  
+  </div>
+    
+
+  </div>
+
+
+  {% else %} 
+
+  <div class="logo_and_navigation">
+  <div class="header_line">
+    <a href="/"><div class="logo"><img src="{% static 'images/tick-tock.png' %}" align="left" /></div></a>
+    <div class="navigation">
+      <a href="/catologue/" class="navigation_link">Події</a>
+      <a href="" class="navigation_link">FAQ</a>
+      <a href="" class="navigation_link">Про проект</a>
+          <div class="e_login_button"><span style="line-height: 40px;color: #145cfb;" onclick="openNav()">Войти</span></div>
+      <div class="e_sell_button"><a href="/sell/" style="line-height: 40px;color: white;text-decoration: none;">Продати квиток</a></div>
+    </div>  
+  </div>
+  </div>
+ {% endif %}   
 
 
 	<div class="bg">
@@ -43,15 +89,19 @@
 		{{ event.description}}
 
 	</div>
+	 {% if  proposals|length > 0  %}
 
 		<div class="event_numbers">
-     			<div class="event_number">25 <br><span class="event_number_element_span">білетів додано</span></div>
-     			<div class="event_number">48 <br><span class="event_number_element_span">білетів куплено</span></div>
-     			<div class="event_number">$666 <br><span class="event_number_element_span">середня ціна</span></div>
+     			<div class="event_number"> {{ proposals|length }} <br><span class="event_number_element_span">білетів додано</span></div>
+     			<div class="event_number"> 0 <br><span class="event_number_element_span">білетів куплено</span></div>
+     		<!-- 	<div class="event_number">$666 <br><span class="event_number_element_span">середня ціна</span></div> -->
 
 
 
      		</div>
+
+
+     			 {% endif %}
 
 
   </div>
@@ -61,15 +111,173 @@
   	<div class="poster" style="width:240px;height:300px;position: relative;
 	border-radius:3px;background: url('{{ event.image_link }}') no-repeat;background-size: cover;" ></div> <br/>
   	<div class="under_poster_motivation"> Не можете відвідати дану подію? <br/> Продайте ваш квиток тут</div>
-     <div class="event_sell_button"><a  href='/sell/' style="line-height: 40px;color:white;">Продати квиток</a></div>
+    <a href='/event_to_sell/{{ event.id}}'><div class="event_sell_button"><span style="line-height: 40px;color:white;">Продати квиток</span></div></a>
 
   </div>
 
 
-  <div class="title_table">
-  	
+
+  	   {% if proposals|length > 0 %}
   		 <div class="title_who_seller">Продают квітки</div>
-  		 <div class="table"></div>
+  		
+  		<!--  <div class="table"> -->
+       
+      {% for proposal in proposals %}
+       <div class="ticket_rectangle">
+         
+         <div class="t_r_upper" style="padding-top: 20px;">
+           <div class="t_r_u_left" style="width: 240px;display: inline-block;;vertical-align: top;">
+
+             <div style="width:45px;height:45px;border-radius: 60px;margin-left: 24px;background: url('{{ proposal.ownership.picture_link }}') no-repeat;background-color: #f0f1f3;display: inline-block; "></div>
+
+            <div style="display: inline-block;margin-left: 13px;">
+                     <div class="ticket_first_name"> {{ proposal.ownership.first_name }}</div>
+                   
+                               <span class="ticket_the_very_number_of_friends">{{ proposal.ownership.number_of_friends }}</span>  <div class="ticket_number_of_friends"> друзів в фейсбук
+                      </div>
+
+            </div>
+
+           </div>
+            <div class="t_r_u_right" style="position:relative;display: inline-block;width: 500px;padding-top: 13px;">
+              
+                     <!--  1 -->
+                       <div style="display:inline-block;">
+                       <div style="font-size: 12px;opacity: 0.4;">
+                         
+                         Тип квитка
+                       </div>
+
+                       <div style="font-size: 15px;opacity: 0.87;margin-top: 0px;padding-top: 5px;">
+
+                       {% if proposal.ownership.ticket_type == 'DG' %}
+
+                       Електроний
+
+                       {% else %}
+                        
+                       Звичайный 
+                       {% endif %}
+
+                       </div>
+
+                       </div>
+
+                      <!--  2 -->
+
+                       <div style="display: inline-block;margin-left: 38px;">
+                       <div style="font-size: 12px;opacity: 0.4;">
+                         
+                         Кількість
+                       </div>
+
+                       <div style="font-size: 15px;opacity: 0.87;margin-top: 4px;">
+1
+
+                       </div>
+
+
+
+
+                       </div>
+
+
+                        <!--  3 -->
+
+                       <div style="display: inline-block;margin-left: 38px;">
+                       <div style="font-size: 12px;opacity: 0.4;">
+                         
+                         Ціна
+                       </div>
+
+                       <div style="font-size: 15px;opacity: 0.87;margin-top: 4px;">
+                
+                        {{ proposal.price }}
+                       </div>
+
+
+
+
+                       </div>
+
+
+
+                        <!--  3 -->
+
+                       <div style="display: inline-block;margin-left: 38px;">
+                       <div style="font-size: 12px;opacity: 0.4;">
+                         
+                        Статус
+                       </div>
+
+                       <div style="font-size: 15px;opacity: 0.87;margin-top: 4px;">
+                
+                        Завантажений в систему
+                       </div>
+
+
+
+
+                       </div>
+
+                            <!--  4 -->
+
+                       <div style="display: inline-block;">
+                       <div style="font-size: 12px;opacity: 0.4;margin-top: 20px;">
+                         
+                        Коментарі
+                       </div>
+
+                       <div style="font-size: 15px;opacity: 0.87;margin-top: 4px; width: 470px;
+                       padding-bottom: 25px;">
+                
+                        {{ proposal.comment }}
+                      
+                      
+                       </div>
+
+
+
+
+                       </div>
+
+                       <!-- end points -->
+
+
+
+
+
+            </div>
+
+         </div>
+
+         <div class="t_r_bottom">
+           
+                  
+          <div  class="t_r_bottom_left" style="display: inline-block;width:160px;height:40px;border-right: solid 2px #f0f1f3;
+">  <span class="t_r_bottom_left_span"> {{ proposal.created_date|date:"d-m-Y,  H:m" }}</span></div>
+             <span class="connect" data-ticket-id="{{ proposal.id }}" data-party-id="{{ proposal.ownership.id }}" data-first-name="{{ proposal.ownership.first_name}}" data-event-title="{{ proposal.event.title}}"  data-picture-url="{{ proposal.ownership.picture_link }}" data-my-picture="{{ request.user.userprofile.picture_link}}"> <span class="connect_span"> Зв'язатися </span> </span>
+         </div>
+         </div>
+       </div>
+
+       {% endfor %}
+<!-- 
+       </div>
+       </div> -->
+
+  		 {% else %}
+
+  		 <div class="no_tickets">
+  		 	<div style="font-size: 24px;padding-top:25px;font-family: muse_bold
+">Квитки відсутні</div>
+<div class="no_tickets_text">На жаль, поки що ще ніхто не добавив квиток в систему. Підпишіться на оновлення і <br/> отримайте сповіщення, коли з'явиться квиток і встигніть придбати его першим</div>
+	 <div class="follow_ticket"><span style="line-height: 40px;">Підписатися на оновлення</span></div>
+  		 </div>
+
+
+  		 {% endif %}
+
   </div>
 
    <div class="similar_events">
@@ -95,5 +303,9 @@
   		
   		 
   </div>
+
+{% endblock content %}    
+
+<!-- 
 </body>
-</html>
+</html> -->

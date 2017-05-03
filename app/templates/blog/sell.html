@@ -460,12 +460,13 @@ if ( comment_field_val == ""){
 
 
 }
-else if (ajax_event_id == null){
- alert('hey');
+// else if ($('#pk_input').val() == null){
+//  alert('id is empty');
 
-}
+// }
 else{
-$('#submit_hidden').trigger('click'); 
+// $('#submit_hidden').trigger('click'); 
+$('.pdf_form').submit();
 }
 
 
@@ -582,7 +583,7 @@ $('#submit_hidden').trigger('click');
 
    <form class="search_form">
                 <div class="make_elegant_form">
-                       <input type="text" placeholder="введіть назву події.." id="search_field"></input>
+                       <input type="text" placeholder="введіть назву події.." id="search_field" value="{{ selected.title }}"></input>
                
                                  
                                  <div type='button' class="city_select">
@@ -605,6 +606,12 @@ $('#submit_hidden').trigger('click');
 -moz-box-shadow:    1px 3px 6px 0px rgba(45, 52, 49, 0.45);
 box-shadow:         1px 3px 6px 0px rgba(45, 52, 49, 0.45);"></div>
            </form>
+{% if selected %}
+
+<div class="chosen_event_container"><img class="chosen_event_container_image" style="background: url({{selected.image_link}}) no-repeat; background-size: cover;margin-right:23px;" align="left" /><span class="chosen_event_container_datetime">{{ selected.place}}</span><span class="chosen_event_container_title">{{ selected.title }}</span><span class="chosen_event_container_place">{{ selected.place}}</span><div class="hashtag_cont"><span class="hashtag_span">#{{ selected.hashtag}}</span></div></div>'
+
+
+{% endif %}
 
 </div>
 
@@ -625,10 +632,14 @@ box-shadow:         1px 3px 6px 0px rgba(45, 52, 49, 0.45);"></div>
   
   <form method='POST' action="/upload_ticket/" enctype="multipart/form-data" class="pdf_form">
 {% csrf_token %}
-            {{ form.as_p }}
+       <!--      {{ form.as_p }} -->
 
-  
-      <input type="submit" id='submit_hidden'>Save</input>
+  <!--     <input type="hidden" id="pk_input" value="{{ selected.id}}" name="event_id"></input> -->
+      <input type="file" id="fileinput" name="pdf"></input>
+      <input type="hidden" id="pk_input" value="{{ selected.id}}" name="event_id"></input>
+      <input type="hidden" id="price_input" value="0" name="price"></input>
+        <input type="hidden" id="comment_input" value="" name="comment"></input>
+     <!--  <input type="submit" id='submit_hidden'>Save</input> -->
   </form>
 
 
@@ -689,8 +700,8 @@ box-shadow:         1px 3px 6px 0px rgba(45, 52, 49, 0.45);"></div>
 
 <div style="position:relative;margin-left: 28px;margin-top: 33px;">
   
-<span class="d_and_d_text">Перетяніть файли в дану зону, <br>
-або <u style="color: #44a4ff;" id="get_from_folder">оберіть в папці</u><br><br>
+<span class="d_and_d_text">Для того щоб квиток опинився <br>
+в системі <u style="color: #44a4ff;" id="get_from_folder">оберіть файл в папці</u><br><br>
 <span class="only_pdf_text">Підтримуються файли тільки в форматі PDF</span>
 </span></div>
 </div>
@@ -715,6 +726,13 @@ var comment_field_val = $('#comment_field').val();
 if ( comment_field_val == ""){
    $("<span id='error_not_filled_span' style='color:red;font-size:12px;'>Обов'язкове поле</span>").insertAfter('#comment_field');
 
+
+}
+
+else{
+
+var comment_field = $('#comment_field').val()
+$('#comment_input').val(comment_field)
 
 }
 
@@ -755,10 +773,13 @@ $('#search_field').keyup(function(event) {
                      } 
 
                      $('.search_item').click(function() {
-                                 
+                                
                                   
                                   $('.search_result_container').fadeOut();
-                                  var pk = $(this).data("pk") ;
+                                  var pk = $(this).data("pk");
+                                 
+                                  // document.getElementById('pk_input').value = pk;
+                                  $('#pk_input').val(pk);
                                   ajax_event_id = pk;
                                   var title = $(this).data("title") ;
                                   var image_link = $(this).data("image");
@@ -804,7 +825,7 @@ var price_number_val = Number($('#price_number').html());
 
  $('#price_number').empty()
  $('#price_number').append(new_price_number)
-
+$('#price_input').val(new_price_number)
 
 
 })
@@ -818,7 +839,7 @@ if (price_number_val != 0){
    $('#price_number').empty()
 var new_price_number =  price_number_val - 50
     $('#price_number').append(new_price_number)
-
+   $('#price_input').val(new_price_number)
 }
 
 

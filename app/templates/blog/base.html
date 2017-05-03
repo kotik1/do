@@ -1,0 +1,224 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>tick-tock</title>
+ 
+   <link rel="stylesheet" href="{% static 'css/base.css' %}">
+   <script type="text/javascript" src="{% static 'js/production_or_local.js' %}"></script>
+
+       <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  
+  <script type="text/javascript" src={% static 'js/dialog.js' %}></script>
+  <script src="https://vk.com/js/api/openapi.js?145" type="text/javascript"></script>
+     <!--  <script type="text/javascript" src={% static 'js/integration.js' %}></script> -->
+</head>
+
+<body style="margin: 0 !important;padding: 0 !important;font-family: muse;" >
+
+
+
+   {% block content %}
+   {% endblock %}
+
+
+<div id="mySidenav" class="sidenav">
+   <div class="profile" style="display:none;">
+        <div class="fb_cover" style="position:relative;width: 700px;height: 249px;margin-top:-15%;background-color: #242b32;z-index: -1;"> </div>
+
+          <div style="width: 100%;height: 249px;margin-top:-249px;">
+              <div style="margin-top: 50px;">
+
+              <div style="display: inline-block;margin-left: 35px;">
+                 <div class="close_rectangle" onclick='closeNav()'><img src="{% static 'images/group.svg' %}" align='center' style="margin-right: 10px;display: inline-block;">Закрити</div>
+                <div class="profile_username"> {{ request.user.userprofile.first_name}} {{ request.user.userprofile.last_name }}</div>
+                <div style=" color: #ffffff; font-size: 16px; line-height: 0.88;margin-top: 16px;"><span class="number_of_friends" style="font-family: muse_bold"></span> <span style="opacity: 0.8;">друзів в соц.мережі</span></div>
+              </div>
+                   <img class='profilepicture' style="border-radius:50%;/*border: solid 1px #ffffff;*/;background-color:#f2f2f2;display: inline-block; text-align: center;margin-right: 30px;margin-top: 30px;" width="90px" height="90px" align="right" />
+              </div>
+              <div style="display: inline-block;">
+              <div style="opacity: 0.6;
+font-size: 14px;margin-top: 28px;color: white;margin-left: 35px;">Електронна адреса</div>
+
+{%  if request.user.userprofile.email %} 
+
+ <span style="font-family: muse_bold;font-size: 16px;color: white;margin-left: 35px;
+"> {{ request.user.userprofile.email}} </span>
+
+{% else %}
+
+<span style="color: red;margin-left: 35px;">Де пошта?</span>
+
+
+{% endif %}
+
+</div>
+
+
+       <div style="display: inline-block;">
+              <div style="opacity: 0.6;
+font-size: 14px;margin-top: 28px;color: white;margin-left: 35px;">Номер телефону</div>
+
+{%  if request.user.userprofile.phone_number %} 
+
+ <span style="font-family: muse_bold;font-size: 16px;color: white;margin-left: 35px;
+"> {{ request.user.userprofile.phone_number}} </span>
+
+{% else %}
+
+<span style="color: red;margin-left: 35px">Де телефон?</span>
+
+
+{% endif %}
+
+</div>
+
+
+              <div class="dialogs" style="position: relative;width: 100%;height: 56px;background: white;color:#145cfb;font-family:muse_bold;text-align:center;margin-top: 30px; box-shadow: 0 -3px 6px 6px rgba(6, 7, 14, 0.15);
+"><span style="line-height: 56px;">ДІАЛОГИ</span></div>
+
+{% if messages %}
+
+{% else %}
+
+<div style="width: 300px;margin-left: 26%;margin-top:170px;opacity: 0.6;" id="no_dialogs_error"> <!-- На превеликий жаль з вами ще не зв'язувалися.  Задля цього вам потрібно опублікувати квиток на продаж або навпаки зв'язатися с продавцем квитка. --></div>
+
+{% endif %}
+
+
+              <div style="position: fixed;width: 100%;height: 55px;
+  background-color: #f8f9fb;box-shadow: 0 -2px 4px 1px #cccccc;bottom: 0px;">
+
+
+
+ <div style="width: 48px;
+  height: 16px;
+  font-family: muse_bold;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.0;
+  letter-spacing: 0.3px;
+  text-align: left;
+  color: #06070e;
+  line-height: 55px;
+  position: relative;
+  margin-left: 470px;" class="logout">Вийти</div>
+    
+  </div>
+
+          </div>
+        </div>
+
+  <div style="position: relative;margin-left: 8.1%;">
+    
+     <div id="hide_group" >
+      <a href="javascript:void(0)" onclick="closeNav()" id="close_nav_trigger"><img src="{% static 'images/closeblue.svg' %}" align='left' style="margin-right: 10px;display: inline-block;"><div class="sidenav_close">Закрити</div></a>
+       <span class="sidenav_title">Ввійдить через одну з <br> соціальних мереж</span>
+       <span class="sidenav_text">Залогінившись за допомогою соціальної<br>мережі, ви використовуваєте власний <br>профіль як гарант вашої порядочності</span>
+
+      <div class="fb-login-button-custom" onClick="checkLoginState();" style="background: url({% static 'images/f-b.png' %});width: 400px;height: 56px;background-color: #3a5998;position:relative;display:block;margin-top: 7.6%;"></div>
+        <div class="vk-login-button-custom" onClick="VKcheckLoginState();" style="background: url({% static 'images/v-k.png' %});width: 400px;height: 56px;margin-top: 1.2%;"></div>
+        <span class="sidenav_prohibited_test"><img src="{% static 'images/prohibited.svg' %}" style="margin-right: 8px;"  align="left" />Ми нічого не будемо публікувати на вашії сторінці</span>
+      </div>
+      <div id="show_group" style="display: none;">
+           <a href="javascript:void(0)" onclick="closeNav()" id="close_nav_trigger"><img src="{% static 'images/closeblue.svg' %}" align='left' style="margin-right: 10px;display: inline-block;"><div class="sidenav_close">Закрити</div></a>
+            <div class="greeting_title"><span class="greeting_title_name"></span>, Привіт!</div>
+            <div class="greeting_text">Для того щоб закінчити реєстрацію, вам необхідно додати вашу електронну пошту та номер телефону</div>
+            <br/>
+            <form class="phone_mail_form">
+                
+                <input type="text"  class="phone_input" placeholder="Номер телефону" ></input>
+                <span class="span_after_phone_input"></span><br/>
+                 <input type="text" class="email_input" ></input><br/>
+                   <span class="span_after_email_input"></span>
+                 <div class="phone_mail_form_button_div"><span class="phone_mail_form_button_span">Продовжити</span></div>
+            </form>
+      </div>
+        <div id="error_group" style="display: none;">
+                <span class="error_666">Помилка #666</span>
+                <span class="error_666_explain">Виникла помилка при продовженні роботи за допомогою з однієї соціальних мереж</span>
+                <span class="error_666_try_again">Спробуйте ще раз або використайте профіль в іншній соціальнії мережі</span>
+                 <div onclick="tryLoginAgain()" class="phone_mail_form_button_div"><span class="phone_mail_form_button_span">Повторити спробу</span>
+
+                </div>
+        </div>
+
+
+
+
+
+      
+<div class="dialog" style="position:fixed;width: 560px;min-height: 900px;background-color: #f0f1f3;
+margin-top: -80px;margin-left: -45px;display: none;">
+
+				<div class="dialog_blue_header">
+				<span class="dialog_back_span">
+				Назад
+				</span>
+				<div class="dialog_info">
+					  <img class="party_picture" style="border-radius:50%;border: solid 1px #ffffff;background-color: gray;display: inline-block; text-align: center;margin-left: 31px;margin-top: 15px;" width="50px" height="50px" />
+					  <div style="display: inline-block;margin-left: 15px;">
+									  <div class="dialog_username"></div>
+									    <div class="dialog_event">Event</div>
+					    </div>
+				        <div class="dialog_container"></div>
+					    <div class="dialog_functions">
+					    <div class="send_ticket_button"><span>Відправити квиток</span></div>
+					    	
+					    	<form>
+					    		<input type="text" id="message_input" placeholder="Ваше повідомлення">
+					    		<div class="send_message_button"><span>Відправити</span></div>
+					    	</form>
+					    </div>
+				</div>
+				</div>
+					
+
+
+
+</div>
+
+
+
+<!-- 
+<div class="dialogs" style="position:fixed;width: 560px;min-height: 900px;background-color: #f0f1f3;
+margin-top: -60px;margin-left: -45px;display: none;"> -->
+
+				
+					
+
+
+
+</div>
+
+
+
+</div>
+
+  <div class="footer">
+      			<div class='footer_left'>
+              	    <div class="footer_title">Ваша найулюблиніша платформа для продажу та купівлі квитків</div><br>
+              	    <span class="footer_span">Забудьте про переживання під час покупки чи продажі <br> квитка, приєднуйтесь і ми все зробимо за вас</span>
+
+                    <div class="footer_navigation"><span class="footer_navigation_element"></span>
+                         <a class="footer_a">Головна</a>
+                          <a class="footer_a">Каталог</a>
+                                    <a class="footer_a">Правила використання</a><br/><br/>
+                                    <a class="footer_a">Партнерам</a>
+                                      <a class="footer_a">Про проект</a>
+                    </div>
+                    <div class="footer_love">
+                      <img src="{% static 'images/love.png' %}" width="186px">
+                    </div>
+	            </div>
+
+
+
+      </div>
+
+</body>
+</html>
+
